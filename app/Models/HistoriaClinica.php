@@ -9,17 +9,19 @@ class HistoriaClinica extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-    'rescatado_id',
-    'fecha_chequeo',
-    'peso',
-    'tratamiento',
-    'observaciones',
-    'cuidados',
-];
+    protected $table = 'historia_clinica';
 
-    public function rescatado()
+    protected $fillable = [
+        'id_mascota',
+        'fecha_chequeo',
+        'peso',
+        'tratamiento',
+        'observaciones',
+        'cuidados',
+    ];
+
+    public function mascota()
     {
-        return $this->belongsTo(Rescatado::class);
+        return $this->belongsTo(Mascota::class, 'id_mascota');
     }
 }

@@ -12,20 +12,19 @@ class Adopcion extends Model
     protected $table = 'adopciones';
 
     protected $fillable = [
-        'rescatado_id',
-        'adoptante_id',
+        'id_mascota',
+        'id_adoptante',
         'fecha_adopcion',
-        'estado',
         'observaciones',
     ];
 
-    public function rescatado()
+    public function mascota()
     {
-        return $this->belongsTo(Rescatado::class);
+        return $this->belongsTo(Mascota::class, 'id_mascota');
     }
 
     public function adoptante()
     {
-        return $this->belongsTo(Adoptante::class);
+        return $this->belongsTo(Adoptante::class, 'id_adoptante');
     }
 }

@@ -3,62 +3,60 @@
 namespace App\Http\Controllers;
 
 use App\Models\HistoriaClinica;
-use App\Models\Rescatado;
+use App\Models\Mascota;
 use Illuminate\Http\Request;
 
 class HistoriaClinicaController extends Controller
 {
     public function index()
     {
-        $historias = HistoriaClinica::with('rescatado')->paginate(10);
+        $historias = HistoriaClinica::with('mascota')->paginate(10);
         return view('historia_clinicas.index', compact('historias'));
     }
 
     public function create()
     {
-       $rescatados = Rescatado::all();
-       return view('historia_clinicas.create', compact('rescatados'));
+        $mascotas = Mascota::all();
+        return view('historia_clinica.create', compact('mascotas'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'rescatado_id' => 'required|exists:rescatados,id',
-            'fecha_chequeo' => 'required|date',
-            'peso' => 'required|numeric',
-            'tratamiento' => 'required|string',
-            'observaciones' => 'nullable|string',
-            'cuidados' => 'nullable|string',
+            'mascota_id' => 'required|exists:mascotas,id',
+            'sintomas' => 'nullable|string',
+            'diagnostico' => 'nullable|string',
+            'tratamiento' => 'nullable|string',
+            'fecha_consulta' => 'required|date'
         ]);
 
         HistoriaClinica::create($request->all());
-        return redirect()->route('historia_clinicas.index')->with('success', 'Historia clínica creada.');
+        return redirect()->route('historia-clinica.index')->with('success', 'Registro creado.');
     }
 
-    public function edit(HistoriaClinica $historia_clinica)
+    public function edit(HistoriaClinica $historiaClinica)
     {
-        $rescatados = Rescatado::all();
-        return view('historia_clinicas.edit', compact('historia_clinica', 'rescatados'));
+        $mascotas = Mascota::all();
+        return view('historia_clinica.edit', compact('historiaClinica', 'mascotas'));
     }
 
-    public function update(Request $request, HistoriaClinica $historia_clinica)
+    public function update(Request $request, HistoriaClinica $historiaClinica)
     {
         $request->validate([
-            'rescatado_id' => 'required|exists:rescatados,id',
-            'fecha_chequeo' => 'required|date',
-            'peso' => 'required|numeric',
-            'tratamiento' => 'required|string',
-            'observaciones' => 'nullable|string',
-            'cuidados' => 'nullable|string',
+            'mascota_id' => 'required|exists:mascotas,id',
+            'sintomas' => 'nullable|string',
+            'diagnostico' => 'nullable|string',
+            'tratamiento' => 'nullable|string',
+            'fecha_consulta' => 'required|date'
         ]);
 
-        $historia_clinica->update($request->all());
-        return redirect()->route('historia_clinicas.index')->with('success', 'Historia clínica actualizada.');
+        $historiaClinica->update($request->all());
+        return redirect()->route('historia-clinica.index')->with('success', 'Registro actualizado.');
     }
 
-    public function destroy(HistoriaClinica $historia_clinica)
+    public function destroy(HistoriaClinica $historiaClinica)
     {
-        $historia_clinica->delete();
-        return redirect()->route('historia_clinicas.index')->with('success', 'Historia clínica eliminada.');
+        $historiaClinica->delete();
+        return redirect()->route('historia-clinica.index')->with('success', 'Registro eliminado.');
     }
 }

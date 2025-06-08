@@ -9,27 +9,44 @@ class Adoptante extends Model
 {
     use HasFactory;
 
+    protected $table = 'adoptantes';
+
     protected $fillable = [
-        'nombre',
+        'nombres',
         'telefono',
-        'email',
-        'edad',
+        'correo',
         'direccion',
-        'observaciones',
-        'rescatado_id',
+        'edad',
+        'tipo_docum',
+        'nro_docum',
+        'sexo',
+        'id_localidad',
+        'id_barrio',
+        'rol',
     ];
-
-    protected $casts = [
-        'fecha_adopcion' => 'date',
-    ];
-
-    public function rescatado()
-    {
-        return $this->belongsTo(Rescatado::class);
-    }
 
     public function adopciones()
     {
-        return $this->hasMany(Adopcion::class);
+        return $this->hasMany(Adopcion::class, 'id_adoptante');
+    }
+
+    public function donaciones()
+    {
+        return $this->hasMany(Donacion::class, 'id_adoptante');
+    }
+
+    public function tipoDocumento()
+    {
+        return $this->belongsTo(TipoDocumento::class, 'tipo_docum');
+    }
+
+    public function localidad()
+    {
+        return $this->belongsTo(LocalidadUsu::class, 'id_localidad');
+    }
+
+    public function barrio()
+    {
+        return $this->belongsTo(Barrio::class, 'id_barrio');
     }
 }

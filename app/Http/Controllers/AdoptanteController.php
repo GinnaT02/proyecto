@@ -9,8 +9,7 @@ class AdoptanteController extends Controller
 {
     public function index()
     {
-        // Pagina los adoptantes de 10 en 10
-        $adoptantes = Adoptante::with('rescatado')->paginate(10);
+        $adoptantes = Adoptante::paginate(10);
         return view('adoptantes.index', compact('adoptantes'));
     }
 
@@ -21,18 +20,16 @@ class AdoptanteController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'nombre' => 'required|string|max:255',
-            'direccion' => 'nullable|string|max:255',
-            'email' => 'nullable|email|max:255',
+            'apellido' => 'required|string|max:255',
             'telefono' => 'nullable|string|max:50',
-            'edad' => 'nullable|integer|min:0',
-            'observaciones' => 'nullable|string',
+            'correo' => 'nullable|email',
+            'direccion' => 'nullable|string|max:255'
         ]);
 
-        Adoptante::create($validated);
-
-        return redirect()->route('adoptantes.index')->with('success', 'Adoptante creado correctamente.');
+        Adoptante::create($request->all());
+        return redirect()->route('adoptantes.index')->with('success', 'Adoptante registrado correctamente.');
     }
 
     public function edit(Adoptante $adoptante)
@@ -42,24 +39,21 @@ class AdoptanteController extends Controller
 
     public function update(Request $request, Adoptante $adoptante)
     {
-        $validated = $request->validate([
+        $request->validate([
             'nombre' => 'required|string|max:255',
-            'direccion' => 'nullable|string|max:255',
-            'email' => 'nullable|email|max:255',
+            'apellido' => 'required|string|max:255',
             'telefono' => 'nullable|string|max:50',
-            'edad' => 'nullable|integer|min:0',
-            'observaciones' => 'nullable|string',
+            'correo' => 'nullable|email',
+            'direccion' => 'nullable|string|max:255'
         ]);
 
-        $adoptante->update($validated);
-
-        return redirect()->route('adoptantes.index')->with('success', 'Adoptante actualizado correctamente.');
+        $adoptante->update($request->all());
+        return redirect()->route('adoptantes.index')->with('success', 'Adoptante actualizado.');
     }
 
     public function destroy(Adoptante $adoptante)
     {
         $adoptante->delete();
-
-        return redirect()->route('adoptantes.index')->with('success', 'Adoptante eliminado correctamente.');
+        return redirect()->route('adoptantes.index')->with('success', 'Adoptante eliminado.');
     }
 }

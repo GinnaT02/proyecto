@@ -2,52 +2,31 @@
 
 @section('content')
     <h1>Editar Adoptante</h1>
-
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error) 
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <form action="{{ route('adoptantes.update', $adoptante) }}" method="POST">
+    <form action="{{ route('adoptantes.update', $adoptante->id) }}" method="POST">
         @csrf
         @method('PUT')
 
-        <div class="mb-3">
-            <label for="nombre">Nombre</label>
-            <input type="text" name="nombre" id="nombre" value="{{ old('nombre', $adoptante->nombre) }}" required>
-        </div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" value="{{ $adoptante->nombre }}" required>
 
-        <div class="mb-3">
-            <label for="direccion">Dirección</label>
-            <input type="text" name="direccion" id="direccion" value="{{ old('direccion', $adoptante->direccion) }}">
-        </div>
+        <label for="tipo_documento_id">Tipo de Documento:</label>
+        <select name="tipo_documento_id" required>
+            @foreach ($tiposDocumento as $tipo)
+                <option value="{{ $tipo->id }}" {{ $tipo->id == $adoptante->tipo_documento_id ? 'selected' : '' }}>
+                    {{ $tipo->nombre }}
+                </option>
+            @endforeach
+        </select>
 
-        <div class="mb-3">
-            <label for="email">Correo electrónico</label>
-            <input type="email" name="email" id="email" value="{{ old('email', $adoptante->email) }}">
-        </div>
+        <label for="numero_documento">Número de Documento:</label>
+        <input type="text" name="numero_documento" value="{{ $adoptante->numero_documento }}" required>
 
-        <div class="mb-3">
-            <label for="telefono">Teléfono</label>
-            <input type="text" name="telefono" id="telefono" value="{{ old('telefono', $adoptante->telefono) }}">
-        </div>
+        <label for="telefono">Teléfono:</label>
+        <input type="text" name="telefono" value="{{ $adoptante->telefono }}" required>
 
-        <div class="mb-3">
-            <label for="edad">Edad</label>
-            <input type="number" name="edad" id="edad" value="{{ old('edad', $adoptante->edad) }}">
-        </div>
+        <label for="direccion">Dirección:</label>
+        <input type="text" name="direccion" value="{{ $adoptante->direccion }}" required>
 
-        <div class="mb-3">
-            <label for="observaciones">Observaciones</label>
-            <textarea name="observaciones" id="observaciones">{{ old('observaciones', $adoptante->observaciones) }}</textarea>
-        </div>
-
-        <button class="btn btn-primary" type="submit">Actualizar</button>
-        <a href="{{ route('adoptantes.index') }}" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn-guardar">Actualizar</button>
     </form>
 @endsection
