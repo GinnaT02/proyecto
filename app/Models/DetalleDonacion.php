@@ -11,7 +11,7 @@ class DetalleDonacion extends Model
 
     protected $table = 'detalle_donacion';
 
-    protected $primaryKey = 'id_detalle';
+    protected $primaryKey = 'id_condicion';
 
     protected $fillable = [
         'id_donacion',

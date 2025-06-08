@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('raza_id')->nullable();
             $table->unsignedBigInteger('condicion_id')->nullable();
             $table->date('fecha_ingreso')->nullable();
-            $table->boolean('condiciones_especiales')->default(false);
+            $table->unsignedBigInteger('condiciones_especiales')->default(false);
             $table->unsignedBigInteger('estado_id')->nullable();
             $table->timestamps();
 

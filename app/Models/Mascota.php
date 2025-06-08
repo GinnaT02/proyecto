@@ -23,12 +23,31 @@ class Mascota extends Model
         'peligroso',
         'esterilizado',
         'genero',
-        'raza_id',
-        'condicion_id',
+        'id_raza',
+        'id_condicion',
         'fecha_ingreso',
         'condiciones_especiales',
-        'estado_id',
+        'id_estado',
     ];
 
     // Aquí puedes definir las relaciones si ya las tienes
+
+    // Relación con Raza
+public function raza()
+{
+    return $this->belongsTo(Raza::class, 'raza_id');
+}
+
+// Relación con Estado
+public function estado()
+{
+    return $this->belongsTo(Estado::class, 'estado_id');
+}
+
+// Relación con Condición
+public function condicion()
+{
+    return $this->belongsTo(DetalleCondicion::class, 'condicion_id');
+}
+
 }
