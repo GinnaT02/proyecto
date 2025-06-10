@@ -2,52 +2,42 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Mascota extends Model
 {
-    use HasFactory;
-
-    protected $table = 'mascotas'; // 👈 Nombre correcto de la tabla
-
-    protected $primaryKey = 'id_mascota'; // 👈 Nombre correcto de la clave primaria
-
-    public $timestamps = true;
-
-    // Agrega los campos que puedes asignar masivamente si es necesario
+    protected $table = 'mascota';
+    protected $primaryKey = 'id_mascota';
+    public $timestamps = false;
     protected $fillable = [
-        'nombre',
+        'nombre_mascota',
         'edad',
         'vacunado',
         'peligroso',
         'esterilizado',
+        'destetado',
         'genero',
-        'id_raza',
-        'id_condicion',
+        'imagen',
+        'crianza',
         'fecha_ingreso',
         'condiciones_especiales',
-        'id_estado',
+        'raza_id',
+        'estado_id',
+        'condicion_id'
     ];
 
-    // Aquí puedes definir las relaciones si ya las tienes
+    public function raza()
+    {
+        return $this->belongsTo(Raza::class, 'raza_id', 'id_raza');
+    }
 
-    // Relación con Raza
-public function raza()
-{
-    return $this->belongsTo(Raza::class, 'raza_id');
-}
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class, 'estado_id', 'id_estado');
+    }
 
-// Relación con Estado
-public function estado()
-{
-    return $this->belongsTo(Estado::class, 'estado_id');
-}
-
-// Relación con Condición
-public function condicion()
-{
-    return $this->belongsTo(DetalleCondicion::class, 'condicion_id');
-}
-
+    public function condicion()
+    {
+        return $this->belongsTo(DetalleCondicion::class, 'condicion_id', 'id_condicion');
+    }
 }

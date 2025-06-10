@@ -6,18 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Raza extends Model
 {
-    protected $table = 'raza'; // nombre de la tabla (confirma que sea "raza")
-    protected $primaryKey = 'id_raza'; // si tu clave primaria se llama distinto, ajústalo
+    protected $table = 'razas';
+    protected $primaryKey = 'id_raza';
     public $timestamps = false;
+    protected $fillable = ['nombre_raza'];
 
-    protected $fillable = [
-        'nombre',
-        // agrega otros campos si los hay
-    ];
-
-    // Relación inversa con Mascota
     public function mascotas()
     {
-        return $this->hasMany(Mascota::class, 'id_raza');
+        return $this->hasMany(Mascota::class, 'raza_id', 'id_raza');
     }
 }

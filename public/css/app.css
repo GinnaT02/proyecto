@@ -190,3 +190,66 @@ form[style*="inline-block"] {
     width: auto;
     border-radius: 5px;
 }
+/* Formularios */
+form {
+background: #fdfdfd;
+padding: 20px;
+border-radius: 6px;
+box-shadow: 0 0 8px rgba(0,0,0,0.1);
+margin-bottom: 2rem;
+}
+
+form label {
+display: block;
+font-weight: bold;
+margin-bottom: 4px;
+margin-top: 12px;
+color: #333;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="date"],
+form textarea,
+form select {
+width: 100%;
+padding: 8px 10px;
+border: 1px solid #ccc;
+border-radius: 4px;
+margin-bottom: 12px;
+font-size: 0.95rem;
+}
+
+form textarea {
+resize: vertical;
+min-height: 80px;
+}
+
+form input[type="checkbox"] {
+margin-right: 6px;
+transform: scale(1.2);
+}
+
+form button[type="submit"] {
+margin-top: 10px;
+padding: 10px 20px;
+font-size: 1rem;
+}
+
+#divDescripcion {
+margin-top: 10px;
+padding: 10px;
+border-left: 3px solid #f5d2f2;
+background-color: #fff7fd;
+border-radius: 4px;
+}
+
+h1 {
+font-size: 1.6rem;
+margin-bottom: 20px;
+color: #111;
+}
+
+.container form {
+margin-top: 20px;
+}

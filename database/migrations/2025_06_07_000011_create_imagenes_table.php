@@ -9,14 +9,11 @@ return new class extends Migration {
     {
         Schema::create('imagenes', function (Blueprint $table) {
             $table->id('id_imagen');
-            $table->unsignedBigInteger('id_mascota'); // 👈 debe coincidir con la PK de mascotas
-            $table->string('ruta_imagen');
+            $table->unsignedBigInteger('id_mascota');
+            $table->string('nombre', 100);
+            $table->string('ruta');
             $table->timestamps();
-
-            $table->foreign('id_mascota')
-                ->references('id_mascota') // 👈 nombre exacto de la PK
-                ->on('mascotas') // 👈 nombre exacto de la tabla
-                ->onDelete('cascade');
+            $table->foreign('id_mascota')->references('id_mascota')->on('mascota')->onDelete('cascade');
         });
     }
 

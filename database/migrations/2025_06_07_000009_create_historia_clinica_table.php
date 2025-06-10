@@ -16,7 +16,7 @@ return new class extends Migration {
         $table->text('observaciones')->nullable();
         $table->text('cuidados')->nullable();
         $table->timestamps();
-        $table->foreign('id_mascota')->references('id_mascota')->on('mascotas')->onDelete('cascade');
+        $table->foreign('id_mascota')->references('id_mascota')->on('mascota')->onDelete('cascade');
     });
 }
 

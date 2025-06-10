@@ -13,10 +13,9 @@ return new class extends Migration
         $table->unsignedBigInteger('id_mascota');
         $table->unsignedBigInteger('id_adoptante');
         $table->date('fecha_adopcion')->nullable();
-        $table->string('estado')->default('En proceso');
         $table->text('observaciones')->nullable();
         $table->timestamps();
-        $table->foreign('id_mascota')->references('id_mascota')->on('mascotas')->onDelete('cascade');
+        $table->foreign('id_mascota')->references('id_mascota')->on('mascota')->onDelete('cascade');
         $table->foreign('id_adoptante')->references('id_adoptante')->on('adoptantes')->onDelete('cascade');
     });
 }

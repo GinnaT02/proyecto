@@ -6,16 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Estado extends Model
 {
-    protected $table = 'estado'; // nombre exacto de la tabla
-    protected $primaryKey = 'id_estado'; // cambia si tu tabla usa otro nombre de PK
+    protected $table = 'estados';
+    protected $primaryKey = 'id_estado';
     public $timestamps = false;
+    protected $fillable = ['descripcion'];
 
-    protected $fillable = [
-        'nombre',
-    ];
-
-    public function mascotas()
-    {
-        return $this->hasMany(Mascota::class, 'id_estado');
-    }
+    public function estado()
+{
+    return $this->belongsTo(Estado::class, 'estado_id', 'id_estado');
+}
 }

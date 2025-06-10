@@ -12,87 +12,129 @@ class MascotaController extends Controller
 {
     public function index()
     {
-        $mascotas = Mascota::with(['raza', 'estado'])->paginate(10);
+        $mascotas = Mascota::with(['raza', 'estado', 'condicion'])->paginate(10);
         return view('mascotas.index', compact('mascotas'));
     }
 
-  public function create()
-{
-    $razas = Raza::all();
-    $estados = Estado::all();
-    $condiciones = DetalleCondicion::all();
+    public function create()
+    {
+        $razas = Raza::all();
+        $estados = Estado::all();
+        return view('mascotas.create', compact('razas', 'estados'));
+    }
 
-    return view('mascotas.create', compact('razas', 'estados', 'condiciones'));
-}
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'nombre_mascota' => 'required|string|max:255',
+            'edad' => 'required|integer',
+            'vacunado' => 'required|boolean',
+            'peligroso' => 'required|boolean',
+            'esterilizado' => 'required|boolean',
+            'destetado' => 'required|boolean',
+            'genero' => 'required|string|max:10',
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'crianza' => 'required|boolean',
+            'fecha_ingreso' => 'required|date',
+            'estado_id' => 'required|exists:estados,id_estado',
+            'nombre_raza' => 'required|string|max:100',
+            'descripcion_condicion' => 'nullable|string',
+        ]);
 
+        // Procesar imagen
+        if ($request->hasFile('imagen')) {
+            $ruta = $request->file('imagen')->store('imagenes', 'public');
+            $data['imagen'] = $ruta;
+        }
 
-    // Relación con Raza
-public function raza()
-{
-    return $this->belongsTo(Raza::class, 'raza_id');
-}
+        // Crear o asociar raza
+        $raza = Raza::firstOrCreate(['nombre_raza' => $request->nombre_raza]);
+        $data['raza_id'] = $raza->id_raza;
+        unset($data['nombre_raza']);
 
-// Relación con Estado
-public function estado()
-{
-    return $this->belongsTo(Estado::class, 'estado_id');
-}
+        // Condición especial
+        if ($request->has('condiciones_especiales') && $request->filled('descripcion_condicion')) {
+            $detalle = DetalleCondicion::create(['descripcion' => $request->descripcion_condicion]);
+            $data['condicion_id'] = $detalle->id_condicion;
+            $data['condiciones_especiales'] = 1;
+        } else {
+            $data['condicion_id'] = null;
+            $data['condiciones_especiales'] = 0;
+        }
 
-// Relación con Condición
-public function condicion()
-{
-    return $this->belongsTo(DetalleCondicion::class, 'condicion_id');
-}
+        Mascota::create($data);
 
-
-  public function store(Request $request)
-{
-      
-    $request->validate([
-        'nombre' => 'required|string|max:255',
-        'edad' => 'nullable|integer',
-        'vacunado' => 'required|boolean',
-        'peligroso' => 'required|boolean',
-        'esterilizado' => 'required|boolean',
-        'genero' => 'required|string|max:10',
-        'raza_id' => 'required|exists:raza,id_raza',
-        'condicion_id' => 'required|exists:detalle_condicion,id_condicion',
-        'fecha_ingreso' => 'nullable|date',
-        'condiciones_especiales' => 'nullable|string',
-        'estado_id' => 'required|exists:estado,id_estado'
-    ]);
-
-    Mascota::create($request->all());
-
-    return redirect()->route('mascotas.index')
-        ->with('success', 'Mascota creada correctamente.');
-}
-
+        return redirect()->route('mascotas.index')->with('success', 'Mascota registrada correctamente.');
+    }
 
     public function edit(Mascota $mascota)
     {
-        return view('mascotas.edit', compact('mascota'));
+        $razas = Raza::all();
+        $estados = Estado::all();
+        return view('mascotas.edit', compact('mascota', 'razas', 'estados'));
     }
 
     public function update(Request $request, Mascota $mascota)
     {
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'edad' => 'nullable|integer',
-            'descripcion_rescate' => 'nullable|string',
-            'fecha_ingreso' => 'nullable|date',
-            'condiciones_especiales' => 'required|boolean',
-            'sexo' => 'required|string',
-            'estado_id' => 'required|exists:estados,id',
-            'raza_id' => 'required|exists:razas,id'
+        $data = $request->validate([
+            'nombre_mascota' => 'required|string|max:255',
+            'edad' => 'required|integer',
+            'vacunado' => 'required|boolean',
+            'peligroso' => 'required|boolean',
+            'esterilizado' => 'required|boolean',
+            'destetado' => 'required|boolean',
+            'genero' => 'required|string|max:10',
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'crianza' => 'required|boolean',
+            'fecha_ingreso' => 'required|date',
+            'estado_id' => 'required|exists:estados,id_estado',
+            'nombre_raza' => 'required|string|max:100',
+            'descripcion_condicion' => 'nullable|string',
+            'condiciones_especiales' => 'nullable|boolean',
         ]);
 
-        $mascota->update($request->all());
+        // Imagen nueva
+        if ($request->hasFile('imagen')) {
+            $ruta = $request->file('imagen')->store('imagenes', 'public');
+            $data['imagen'] = $ruta;
+        }
+
+        // Crear o asociar raza
+        $raza = Raza::firstOrCreate(['nombre_raza' => $request->nombre_raza]);
+        $data['raza_id'] = $raza->id_raza;
+        unset($data['nombre_raza']);
+
+        // Condición especial
+        $tieneCondicion = $request->input('condiciones_especiales') == 1;
+
+        if ($tieneCondicion && $request->filled('descripcion_condicion')) {
+            if ($mascota->condicion_id) {
+                DetalleCondicion::where('id_condicion', $mascota->condicion_id)->delete();
+            }
+            $detalle = DetalleCondicion::create(['descripcion' => $request->descripcion_condicion]);
+            $data['condicion_id'] = $detalle->id_condicion;
+            $data['condiciones_especiales'] = 1;
+        } else {
+            if ($mascota->condicion_id) {
+                DetalleCondicion::where('id_condicion', $mascota->condicion_id)->delete();
+            }
+            $data['condicion_id'] = null;
+            $data['condiciones_especiales'] = 0;
+        }
+
+        unset($data['descripcion_condicion']);
+
+        $mascota->update($data);
+
         return redirect()->route('mascotas.index')->with('success', 'Mascota actualizada correctamente.');
     }
 
     public function destroy(Mascota $mascota)
     {
+        if ($mascota->condicion_id) {
+            DetalleCondicion::where('id_condicion', $mascota->condicion_id)->delete();
+        }
+
         $mascota->delete();
         return redirect()->route('mascotas.index')->with('success', 'Mascota eliminada correctamente.');
     }

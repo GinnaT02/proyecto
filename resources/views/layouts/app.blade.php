@@ -16,10 +16,6 @@
                 </a>
                 <ul class="navbar-nav">
                     <li><a class="{{ request()->routeIs('mascotas.*') ? 'active' : '' }}" href="{{ route('mascotas.index') }}">Mascota</a></li>
-                    <li><a class="{{ request()->routeIs('historia_clinicas.*') ? 'active' : '' }}" href="{{ route('historia_clinicas.index') }}">Historias clínicas</a></li>
-                    <li><a class="{{ request()->routeIs('adoptantes.*') ? 'active' : '' }}" href="{{ route('adoptantes.index') }}">Adoptantes</a></li>
-                    <li><a class="{{ request()->routeIs('adopciones.*') ? 'active' : '' }}" href="{{ route('adopciones.index') }}">Adopciones</a></li>
-                    <li><a class="{{ request()->routeIs('informes.*') ? 'active' : '' }}" href="{{ route('informes.index') }}">Informes</a></li>
                 </ul>
             </div>
         </nav>

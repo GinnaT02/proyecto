@@ -4,29 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-{
-    Schema::create('estado', function (Blueprint $table) {
-        $table->id('id_estado');
-        $table->string('nombre', 50);
-        $table->timestamps();
-    });
-}
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+return new class extends Migration {
+    public function up(): void
     {
-        Schema::dropIfExists('estado');
+        Schema::create('estados', function (Blueprint $table) {
+            $table->bigIncrements('id_estado');
+            $table->string('descripcion', 100);
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('estados');
     }
 };
