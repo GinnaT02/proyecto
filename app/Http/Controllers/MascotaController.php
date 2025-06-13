@@ -108,16 +108,12 @@ class MascotaController extends Controller
         $tieneCondicion = $request->input('condiciones_especiales') == 1;
 
         if ($tieneCondicion && $request->filled('descripcion_condicion')) {
-            if ($mascota->condicion_id) {
-                DetalleCondicion::where('id_condicion', $mascota->condicion_id)->delete();
-            }
+            if ($mascota->condicion_id) {DetalleCondicion::where('id_condicion', $mascota->condicion_id)->delete();}
             $detalle = DetalleCondicion::create(['descripcion' => $request->descripcion_condicion]);
             $data['condicion_id'] = $detalle->id_condicion;
             $data['condiciones_especiales'] = 1;
         } else {
-            if ($mascota->condicion_id) {
-                DetalleCondicion::where('id_condicion', $mascota->condicion_id)->delete();
-            }
+            if ($mascota->condicion_id) {DetalleCondicion::where('id_condicion', $mascota->condicion_id)->delete();}
             $data['condicion_id'] = null;
             $data['condiciones_especiales'] = 0;
         }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Adopcion;
-use App\Models\Adoptante;
 use App\Models\Mascota;
+use App\Models\Adoptante;
 use Illuminate\Http\Request;
 
 class AdopcionController extends Controller
@@ -17,45 +17,50 @@ class AdopcionController extends Controller
 
     public function create()
     {
-        $adoptantes = Adoptante::all();
         $mascotas = Mascota::all();
-        return view('adopciones.create', compact('adoptantes', 'mascotas'));
+        $adoptantes = Adoptante::all();
+        return view('adopciones.create', compact('mascotas', 'adoptantes'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'adoptante_id' => 'required|exists:adoptantes,id',
-            'mascota_id' => 'required|exists:mascotas,id',
-            'fecha_adopcion' => 'required|date'
+        $data = $request->validate([
+            'id_mascota' => 'required|exists:mascota,id_mascota',
+            'id_adoptante' => 'required|exists:adoptantes,id_adoptante',
+            'fecha_adopcion' => 'nullable|date',
+            'observaciones' => 'nullable|string|max:255'
         ]);
 
-        Adopcion::create($request->all());
+        Adopcion::create($data);
+
         return redirect()->route('adopciones.index')->with('success', 'Adopción registrada correctamente.');
     }
 
     public function edit(Adopcion $adopcion)
     {
-        $adoptantes = Adoptante::all();
         $mascotas = Mascota::all();
-        return view('adopciones.edit', compact('adopcion', 'adoptantes', 'mascotas'));
+        $adoptantes = Adoptante::all();
+        return view('adopciones.edit', compact('adopcion', 'mascotas', 'adoptantes'));
     }
 
     public function update(Request $request, Adopcion $adopcion)
     {
-        $request->validate([
-            'adoptante_id' => 'required|exists:adoptantes,id',
-            'mascota_id' => 'required|exists:mascotas,id',
-            'fecha_adopcion' => 'required|date'
+        $data = $request->validate([
+            'id_mascota' => 'required|exists:mascota,id_mascota',
+            'id_adoptante' => 'required|exists:adoptantes,id_adoptante',
+            'fecha_adopcion' => 'nullable|date',
+            'observaciones' => 'nullable|string|max:255'
         ]);
 
-        $adopcion->update($request->all());
+        $adopcion->update($data);
+
         return redirect()->route('adopciones.index')->with('success', 'Adopción actualizada correctamente.');
     }
 
     public function destroy(Adopcion $adopcion)
     {
         $adopcion->delete();
-        return redirect()->route('adopciones.index')->with('success', 'Adopción eliminada.');
+
+        return redirect()->route('adopciones.index')->with('success', 'Adopción eliminada correctamente.');
     }
 }

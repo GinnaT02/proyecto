@@ -1,29 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Registrar Adopción</h1>
-    <form action="{{ route('adopciones.store') }}" method="POST">
-        @csrf
-        <label for="rescatado_id">Animal:</label>
-        <select name="rescatado_id" required>
-            @foreach ($rescatados as $rescatado)
-                <option value="{{ $rescatado->id }}">{{ $rescatado->nombre }}</option>
-            @endforeach
-        </select>
+<h1>Registrar Adopción</h1>
 
-        <label for="adoptante_id">Adoptante:</label>
-        <select name="adoptante_id" required>
-            @foreach ($adoptantes as $adoptante)
-                <option value="{{ $adoptante->id }}">{{ $adoptante->nombre }}</option>
-            @endforeach
-        </select>
+<form action="{{ route('adopciones.store') }}" method="POST">
+    @csrf
 
-        <label for="fecha">Fecha de Adopción:</label>
-        <input type="date" name="fecha" required>
+    <label>Mascota:</label>
+    <select name="id_mascota" required>
+        <option value="">-- Seleccione una mascota --</option>
+        @foreach($mascotas as $m)
+            <option value="{{ $m->id_mascota }}">{{ $m->nombre_mascota }}</option>
+        @endforeach
+    </select>
 
-        <label for="observaciones">Observaciones:</label>
-        <textarea name="observaciones"></textarea>
+    <label>Adoptante:</label>
+    <select name="id_adoptante" required>
+        <option value="">-- Seleccione un adoptante --</option>
+        @foreach($adoptantes as $a)
+            <option value="{{ $a->id_adoptante }}">{{ $a->nombre }}</option>
+        @endforeach
+    </select>
 
-        <button type="submit" class="btn-guardar">Guardar</button>
-    </form>
+    <label>Fecha de adopción:</label>
+    <input type="date" name="fecha_adopcion" required>
+
+    <label>Observaciones:</label>
+    <textarea name="observaciones"></textarea>
+
+    <br><br>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
 @endsection

@@ -23,6 +23,9 @@
                 <ul class="navbar-nav">
                     <li><a class="{{ request()->routeIs('galeria.*') ? 'active' : '' }}" href="{{ route('galeria.index') }}">Galeria</a></li>
                 </ul>
+                <ul class="navbar-nav">
+                    <li><a class="{{ request()->routeIs('adopciones.*') ? 'active' : '' }}" href="{{ route('adopciones.index') }}">Adopciones</a></li>
+                </ul>
             </div>
         </nav>
     </header>

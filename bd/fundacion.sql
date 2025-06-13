@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-06-2025 a las 22:51:29
+-- Tiempo de generación: 13-06-2025 a las 22:09:05
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -82,6 +82,13 @@ CREATE TABLE `detalle_condicion` (
   `id_condicion` bigint(20) UNSIGNED NOT NULL,
   `descripcion` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_condicion`
+--
+
+INSERT INTO `detalle_condicion` (`id_condicion`, `descripcion`) VALUES
+(5, 'Es un perro agresivo');
 
 -- --------------------------------------------------------
 
@@ -173,6 +180,13 @@ CREATE TABLE `historia_clinica` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `historia_clinica`
+--
+
+INSERT INTO `historia_clinica` (`id_historia`, `id_mascota`, `fecha_chequeo`, `peso`, `tratamiento`, `observaciones`, `cuidados`, `created_at`, `updated_at`) VALUES
+(1, 6, '2025-06-11', 60.00, 'Ninguno', 'Agresivo', 'Ninguno', '2025-06-13 22:05:43', '2025-06-13 22:34:28');
+
 -- --------------------------------------------------------
 
 --
@@ -187,6 +201,13 @@ CREATE TABLE `imagenes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `imagenes`
+--
+
+INSERT INTO `imagenes` (`id_imagen`, `id_mascota`, `nombre`, `ruta`, `created_at`, `updated_at`) VALUES
+(1, 6, 'Paco Agresivo', 'storage/imagenes/1749834436_pacoo.jpg', '2025-06-13 22:07:16', '2025-06-13 22:34:48');
 
 -- --------------------------------------------------------
 
@@ -230,7 +251,7 @@ CREATE TABLE `mascota` (
 --
 
 INSERT INTO `mascota` (`id_mascota`, `nombre_mascota`, `edad`, `vacunado`, `peligroso`, `esterilizado`, `destetado`, `genero`, `imagen`, `crianza`, `fecha_ingreso`, `condiciones_especiales`, `raza_id`, `condicion_id`, `estado_id`) VALUES
-(6, 's', 2, 1, 1, 1, 1, 'Macho', 'imagenes/6ye2FNYnipzKaGv4yj0Kifqz297HeG4aFY9Ca3U6.png', 1, '2025-06-11', 0, 5, NULL, 2);
+(6, 'Paco', 9, 1, 1, 1, 0, 'Macho', 'imagenes/Vh6qaHtZrEQk01EV3EmN2Rnhr6TzevuWuBzabgCr.png', 0, '2025-06-11', 1, 1, 5, 6);
 
 -- --------------------------------------------------------
 
@@ -525,7 +546,7 @@ ALTER TABLE `barrio`
 -- AUTO_INCREMENT de la tabla `detalle_condicion`
 --
 ALTER TABLE `detalle_condicion`
-  MODIFY `id_condicion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_condicion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_donacion`
@@ -555,13 +576,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de la tabla `historia_clinica`
 --
 ALTER TABLE `historia_clinica`
-  MODIFY `id_historia` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_historia` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  MODIFY `id_imagen` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_imagen` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `localidad_usu`
@@ -573,7 +594,7 @@ ALTER TABLE `localidad_usu`
 -- AUTO_INCREMENT de la tabla `mascota`
 --
 ALTER TABLE `mascota`
-  MODIFY `id_mascota` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_mascota` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
