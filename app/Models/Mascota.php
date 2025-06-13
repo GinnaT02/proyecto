@@ -40,4 +40,9 @@ class Mascota extends Model
     {
         return $this->belongsTo(DetalleCondicion::class, 'condicion_id', 'id_condicion');
     }
+    public function historiasClinicas()
+{
+    return $this->hasMany(HistoriaClinica::class, 'id_mascota');
+}
+
 }

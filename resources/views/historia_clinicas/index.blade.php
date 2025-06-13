@@ -1,35 +1,49 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Listado de Historias Clínicas</h1>
-    <a href="{{ route('historiaclinicas.create') }}" class="btn-agregar">Agregar Historia</a>
-    <table>
-        <thead>
+<h1>Listado de Historias Clínicas</h1>
+
+<a href="{{ route('historia_clinicas.create') }}" class="btn btn-primary mb-3">Registrar Historia Clínica</a>
+
+@if(session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Mascota</th>
+            <th>Fecha Chequeo</th>
+            <th>Peso (kg)</th>
+            <th>Tratamiento</th>
+            <th>Observaciones</th>
+            <th>Cuidados</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($historias as $h)
             <tr>
-                <th>Mascota</th>
-                <th>Fecha</th>
-                <th>Descripción</th>
-                <th>Veterinario</th>
-                <th>Acciones</th>
+                <td>{{ $h->id_historia }}</td>
+                <td>{{ $h->mascota->nombre_mascota ?? 'Sin nombre' }}</td>
+                <td>{{ $h->fecha_chequeo }}</td>
+                <td>{{ $h->peso }}</td>
+                <td>{{ $h->tratamiento }}</td>
+                <td>{{ $h->observaciones ?? '-' }}</td>
+                <td>{{ $h->cuidados ?? '-' }}</td>
+                <td>
+                    <a href="{{ route('historia_clinicas.edit', $h) }}" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="{{ route('historia_clinicas.destroy', $h) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar esta historia clínica?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach ($historias as $historia)
-                <tr>
-                    <td>{{ $historia->rescatado->nombre }}</td>
-                    <td>{{ $historia->fecha }}</td>
-                    <td>{{ $historia->descripcion }}</td>
-                    <td>{{ $historia->veterinario }}</td>
-                    <td>
-                        <a href="{{ route('historias.edit', $historia->id) }}" class="btn-editar">Editar</a>
-                        <form action="{{ route('historias.destroy', $historia->id) }}" method="POST" class="form-eliminar">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn-eliminar">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+        @endforeach
+    </tbody>
+</table>
+
+{{ $historias->links() }}
 @endsection

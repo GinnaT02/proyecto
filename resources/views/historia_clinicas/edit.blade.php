@@ -1,29 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Editar Historia Clínica</h1>
-    <form action="{{ route('historias.update', $historia->id) }}" method="POST">
-        @csrf
-        @method('PUT')
+<h1>Editar Historia Clínica</h1>
 
-        <label for="rescatado_id">Mascota:</label>
-        <select name="rescatado_id" required>
-            @foreach ($rescatados as $rescatado)
-                <option value="{{ $rescatado->id }}" {{ $rescatado->id == $historia->rescatado_id ? 'selected' : '' }}>
-                    {{ $rescatado->nombre }}
-                </option>
-            @endforeach
-        </select>
+<form action="{{ route('historia_clinicas.update', $historiaClinica) }}" method="POST">
+    @csrf
+    @method('PUT')
 
-        <label for="fecha">Fecha:</label>
-        <input type="date" name="fecha" value="{{ $historia->fecha }}" required>
+    <label>Mascota:</label>
+    <select name="id_mascota" required>
+        @foreach ($mascotas as $m)
+            <option value="{{ $m->id_mascota }}" {{ $historiaClinica->id_mascota == $m->id_mascota ? 'selected' : '' }}>
+                {{ $m->nombre_mascota }}
+            </option>
+        @endforeach
+    </select>
 
-        <label for="descripcion">Descripción:</label>
-        <textarea name="descripcion" required>{{ $historia->descripcion }}</textarea>
+    <label>Fecha de Chequeo:</label>
+    <input type="date" name="fecha_chequeo" value="{{ $historiaClinica->fecha_chequeo }}" required>
 
-        <label for="veterinario">Veterinario:</label>
-        <input type="text" name="veterinario" value="{{ $historia->veterinario }}" required>
+    <label>Peso (kg):</label>
+    <input type="number" step="0.01" name="peso" value="{{ $historiaClinica->peso }}" required>
 
-        <button type="submit" class="btn-guardar">Actualizar</button>
-    </form>
+    <label>Tratamiento:</label>
+    <textarea name="tratamiento" required>{{ $historiaClinica->tratamiento }}</textarea>
+
+    <label>Observaciones:</label>
+    <textarea name="observaciones">{{ $historiaClinica->observaciones }}</textarea>
+
+    <label>Cuidados:</label>
+    <textarea name="cuidados">{{ $historiaClinica->cuidados }}</textarea>
+
+    <br><br>
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+</form>
 @endsection

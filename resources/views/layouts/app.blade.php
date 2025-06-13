@@ -17,6 +17,12 @@
                 <ul class="navbar-nav">
                     <li><a class="{{ request()->routeIs('mascotas.*') ? 'active' : '' }}" href="{{ route('mascotas.index') }}">Mascota</a></li>
                 </ul>
+                <ul class="navbar-nav">
+                    <li><a class="{{ request()->routeIs('historia_clinicas.*') ? 'active' : '' }}" href="{{ route('historia_clinicas.index') }}">Historia clinica</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li><a class="{{ request()->routeIs('galeria.*') ? 'active' : '' }}" href="{{ route('galeria.index') }}">Galeria</a></li>
+                </ul>
             </div>
         </nav>
     </header>

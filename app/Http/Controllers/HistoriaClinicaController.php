@@ -17,46 +17,48 @@ class HistoriaClinicaController extends Controller
     public function create()
     {
         $mascotas = Mascota::all();
-        return view('historia_clinica.create', compact('mascotas'));
+        return view('historia_clinicas.create', compact('mascotas'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'mascota_id' => 'required|exists:mascotas,id',
-            'sintomas' => 'nullable|string',
-            'diagnostico' => 'nullable|string',
-            'tratamiento' => 'nullable|string',
-            'fecha_consulta' => 'required|date'
+        'id_mascota'    => 'required|exists:mascota,id_mascota',
+        'fecha_chequeo'   => 'required|date',
+        'peso'            => 'required|numeric',
+        'tratamiento'     => 'required|string',
+        'observaciones'   => 'nullable|string',
+        'cuidados'        => 'nullable|string',
         ]);
 
         HistoriaClinica::create($request->all());
-        return redirect()->route('historia-clinica.index')->with('success', 'Registro creado.');
+        return redirect()->route('historia_clinicas.index')->with('success', 'Registro creado.');
     }
 
     public function edit(HistoriaClinica $historiaClinica)
     {
         $mascotas = Mascota::all();
-        return view('historia_clinica.edit', compact('historiaClinica', 'mascotas'));
+        return view('historia_clinicas.edit', compact('historiaClinica', 'mascotas'));
     }
 
     public function update(Request $request, HistoriaClinica $historiaClinica)
     {
         $request->validate([
-            'mascota_id' => 'required|exists:mascotas,id',
-            'sintomas' => 'nullable|string',
-            'diagnostico' => 'nullable|string',
-            'tratamiento' => 'nullable|string',
-            'fecha_consulta' => 'required|date'
+           'id_mascota'    => 'required|exists:mascota,id_mascota',
+        'fecha_chequeo'   => 'required|date',
+        'peso'            => 'required|numeric',
+        'tratamiento'     => 'required|string',
+        'observaciones'   => 'nullable|string',
+        'cuidados'        => 'nullable|string',
         ]);
 
         $historiaClinica->update($request->all());
-        return redirect()->route('historia-clinica.index')->with('success', 'Registro actualizado.');
+        return redirect()->route('historia_clinicas.index')->with('success', 'Registro actualizado.');
     }
 
     public function destroy(HistoriaClinica $historiaClinica)
     {
         $historiaClinica->delete();
-        return redirect()->route('historia-clinica.index')->with('success', 'Registro eliminado.');
+        return redirect()->route('historia_clinicas.index')->with('success', 'Registro eliminado.');
     }
 }
