@@ -2,51 +2,40 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Adoptante extends Model
 {
-    use HasFactory;
-
     protected $table = 'adoptantes';
+    protected $primaryKey = 'id_adoptante';
+    public $timestamps = false;
 
     protected $fillable = [
         'nombres',
         'telefono',
-        'correo',
         'direccion',
         'edad',
-        'tipo_docum',
         'nro_docum',
+        'correo',
         'sexo',
         'id_localidad',
-        'id_barrio',
+        'barrio_viv',
         'rol',
     ];
 
-    public function adopciones()
-    {
-        return $this->hasMany(Adopcion::class, 'id_adoptante');
-    }
-
-    public function donaciones()
-    {
-        return $this->hasMany(Donacion::class, 'id_adoptante');
-    }
-
+    // Relaciones
     public function tipoDocumento()
     {
-        return $this->belongsTo(TipoDocumento::class, 'tipo_docum');
+        return $this->belongsTo(TipoDocum::class, 'tipo_docum', 'id_tipo');
     }
 
     public function localidad()
     {
-        return $this->belongsTo(LocalidadUsu::class, 'id_localidad');
+        return $this->belongsTo(LocalidadUsu::class, 'id_localidad', 'id_localidad');
     }
 
     public function barrio()
     {
-        return $this->belongsTo(Barrio::class, 'id_barrio');
+        return $this->belongsTo(Barrio::class, 'barrio_viv', 'id_barrio');
     }
 }

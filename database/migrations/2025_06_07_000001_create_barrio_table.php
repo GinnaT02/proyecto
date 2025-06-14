@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('barrio', function (Blueprint $table) {
     $table->id('id_barrio');
     $table->string('nombre_barrio', 100);
+    $table->unsignedBigInteger('id_localidad');
     $table->timestamps();
-});
+    $table->foreign('id_localidad')->references('id_localidad')->on('localidad_usu')->onDelete('cascade');
+    });
 
     }
 

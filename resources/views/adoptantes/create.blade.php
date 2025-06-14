@@ -1,28 +1,59 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Agregar Adoptante</h1>
-    <form action="{{ route('adoptantes.store') }}" method="POST">
-        @csrf
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" required>
+<h1>Registrar Adoptante</h1>
 
-        <label for="tipo_documento_id">Tipo de Documento:</label>
-        <select name="tipo_documento_id" required>
-            @foreach ($tiposDocumento as $tipo)
-                <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
-            @endforeach
-        </select>
+<form action="{{ route('adoptantes.store') }}" method="POST">
+    @csrf
 
-        <label for="numero_documento">Número de Documento:</label>
-        <input type="text" name="numero_documento" required>
+    <label>Nombre:</label>
+    <input type="text" name="nombres" value="{{ old('nombres') }}" required>
 
-        <label for="telefono">Teléfono:</label>
-        <input type="text" name="telefono" required>
+    <label>Teléfono:</label>
+    <input type="text" name="telefono" value="{{ old('telefono') }}">
 
-        <label for="direccion">Dirección:</label>
-        <input type="text" name="direccion" required>
+    <label>Dirección:</label>
+    <input type="text" name="direccion" value="{{ old('direccion') }}">
 
-        <button type="submit" class="btn-guardar">Guardar</button>
-    </form>
+    <label>Edad:</label>
+    <input type="number" name="edad" value="{{ old('edad') }}">
+
+    <label>Nro Documento:</label>
+    <input type="number" name="nro_docum" value="{{ old('nro_docum') }}" required>
+
+    <label>Tipo Documento:</label>
+    <select name="tipo_docum" required>
+        <option value="">Seleccione...</option>
+        @foreach($tipos as $tipo)
+            <option value="{{ $tipo->id_tipo }}">{{ $tipo->nombre_tipo }}</option>
+        @endforeach
+    </select>
+
+    <label>Correo:</label>
+    <input type="email" name="correo" value="{{ old('correo') }}">
+    
+
+    <select name="sexo" required> <option value="M">Masculino</option> <option value="F">Femenino</option> </select>
+
+    <label>Localidad:</label>
+    <select name="id_localidad" required>
+        <option value="">Seleccione...</option>
+        @foreach($localidades as $loc)
+            <option value="{{ $loc->id_localidad }}">{{ $loc->nombre_localidad }}</option>
+        @endforeach
+    </select>
+
+    <label>Barrio</label>
+    <input type="text" value="{{ old('barrio') }}"></textarea>
+
+    <label>Rol:</label>
+    <select name="rol" required>
+        <option value="adoptante">Adoptante</option>
+        <option value="donante">Donante</option>
+        <option value="ambos">Ambos</option>
+    </select>
+
+    <br><br>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
 @endsection
