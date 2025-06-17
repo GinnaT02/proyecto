@@ -23,44 +23,45 @@
     <input type="number" name="nro_docum" value="{{ old('nro_docum', $adoptante->nro_docum) }}" required>
 
     <label>Tipo Documento:</label>
-    <select name="tipo_docum" required>
-        <option value="">Seleccione...</option>
-        @foreach($tipos as $tipo)
-            <option value="{{ $tipo->id_tipo }}" {{ $adoptante->tipo_docum == $tipo->id_tipo ? 'selected' : '' }}>
-                {{ $tipo->nombre_tipo }}
-            </option>
-        @endforeach
-    </select>
+    <select name="id_tipo" required>
+    <option value="">Seleccione...</option>
+    @foreach($tipos as $tipo)
+        <option value="{{ $tipo->id_tipo }}" 
+            {{ old('id_tipo', $adoptante->id_tipo) == $tipo->id_tipo ? 'selected' : '' }}>
+            {{ $tipo->nombre_tipo }}
+        </option>
+    @endforeach
+</select>
 
     <label>Correo:</label>
     <input type="email" name="correo" value="{{ old('correo', $adoptante->correo) }}">
 
     <label>Sexo:</label>
-    <input type="text" name="sexo" value="{{ old('sexo', $adoptante->sexo) }}">
+    <select name="sexo" required>
+        <option value="M" {{ old('sexo', $adoptante->sexo) == 'M' ? 'selected' : '' }}>Masculino</option>
+        <option value="F" {{ old('sexo', $adoptante->sexo) == 'F' ? 'selected' : '' }}>Femenino</option>
+        <option value="O" {{ old('sexo', $adoptante->sexo) == 'O' ? 'selected' : '' }}>Otro</option>
+    </select>
 
     <label>Localidad:</label>
     <select name="id_localidad" required>
+        <option value="">Seleccione...</option>
         @foreach($localidades as $loc)
-            <option value="{{ $loc->id_localidad }}" {{ $adoptante->id_localidad == $loc->id_localidad ? 'selected' : '' }}>
+            <option value="{{ $loc->id_localidad }}" 
+                {{ old('id_localidad', $adoptante->id_localidad) == $loc->id_localidad ? 'selected' : '' }}>
                 {{ $loc->nombre_localidad }}
             </option>
         @endforeach
     </select>
 
     <label>Barrio:</label>
-    <select name="barrio_viv" required>
-        @foreach($barrios as $b)
-            <option value="{{ $b->id_barrio }}" {{ $adoptante->barrio_viv == $b->id_barrio ? 'selected' : '' }}>
-                {{ $b->nombre_barrio }}
-            </option>
-        @endforeach
-    </select>
+        <input type="text" name="barrio_viv" value="{{ old('barrio_viv', $adoptante->barrio->nombre_barrio ?? '') }}" required>
 
     <label>Rol:</label>
     <select name="rol" required>
-        <option value="adoptante" {{ $adoptante->rol == 'adoptante' ? 'selected' : '' }}>Adoptante</option>
-        <option value="donante" {{ $adoptante->rol == 'donante' ? 'selected' : '' }}>Donante</option>
-        <option value="ambos" {{ $adoptante->rol == 'ambos' ? 'selected' : '' }}>Ambos</option>
+        <option value="adoptante" {{ old('rol', $adoptante->rol) == 'adoptante' ? 'selected' : '' }}>Adoptante</option>
+        <option value="donante" {{ old('rol', $adoptante->rol) == 'donante' ? 'selected' : '' }}>Donante</option>
+        <option value="ambos" {{ old('rol', $adoptante->rol) == 'ambos' ? 'selected' : '' }}>Ambos</option>
     </select>
 
     <br><br>

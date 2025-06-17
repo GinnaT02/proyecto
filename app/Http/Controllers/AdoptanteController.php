@@ -32,15 +32,34 @@ class AdoptanteController extends Controller
             'direccion' => 'nullable|string|max:100',
             'edad' => 'nullable|integer',
             'nro_docum' => 'required|integer',
-            'tipo_docum' => 'required|exists:tipo_docum,id_tipo',
+            'id_tipo' => 'required|exists:tipo_docum,id_tipo',
             'correo' => 'nullable|email|max:100',
             'sexo' => 'nullable|string|max:10',
             'id_localidad' => 'required|exists:localidad_usu,id_localidad',
-            'barrio_viv' => 'nullable|string|max:100',
+            'barrio_viv' => 'required|string|max:100',
             'rol' => 'required|in:adoptante,donante,ambos',
         ]);
 
-        Adoptante::create($data);
+        // Buscar o crear el barrio según nombre y localidad
+        $barrio = Barrio::firstOrCreate(
+            [
+                'nombre_barrio' => $data['barrio_viv'],
+            ]
+        );
+
+        Adoptante::create([
+            'nombres' => $data['nombres'],
+            'telefono' => $data['telefono'],
+            'direccion' => $data['direccion'],
+            'edad' => $data['edad'],
+            'nro_docum' => $data['nro_docum'],
+            'id_tipo' => $data['id_tipo'],
+            'correo' => $data['correo'],
+            'sexo' => $data['sexo'],
+            'id_localidad' => $data['id_localidad'],
+            'id_barrio' => $barrio->id_barrio,
+            'rol' => $data['rol'],
+        ]);
 
         return redirect()->route('adoptantes.index')->with('success', 'Adoptante registrado correctamente.');
     }
@@ -61,15 +80,34 @@ class AdoptanteController extends Controller
             'direccion' => 'nullable|string|max:100',
             'edad' => 'nullable|integer',
             'nro_docum' => 'required|integer',
-            'tipo_docum' => 'required|exists:tipo_docum,id_tipo',
+            'id_tipo' => 'required|exists:tipo_docum,id_tipo',
             'correo' => 'nullable|email|max:100',
             'sexo' => 'nullable|string|max:10',
             'id_localidad' => 'required|exists:localidad_usu,id_localidad',
-            'barrio_viv' => 'nullable|string|max:100',
+            'barrio_viv' => 'required|string|max:100',
             'rol' => 'required|in:adoptante,donante,ambos',
         ]);
 
-        $adoptante->update($data);
+        $barrio = Barrio::firstOrCreate(
+            [
+                'nombre_barrio' => $data['barrio_viv'],
+                'id_localidad' => $data['id_localidad'],
+            ]
+        );
+
+        $adoptante->update([
+            'nombres' => $data['nombres'],
+            'telefono' => $data['telefono'],
+            'direccion' => $data['direccion'],
+            'edad' => $data['edad'],
+            'nro_docum' => $data['nro_docum'],
+            'id_tipo' => $data['id_tipo'],
+            'correo' => $data['correo'],
+            'sexo' => $data['sexo'],
+            'id_localidad' => $data['id_localidad'],
+            'id_barrio' => $barrio->id_barrio,
+            'rol' => $data['rol'],
+        ]);
 
         return redirect()->route('adoptantes.index')->with('success', 'Adoptante actualizado correctamente.');
     }

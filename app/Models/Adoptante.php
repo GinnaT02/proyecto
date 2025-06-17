@@ -19,14 +19,15 @@ class Adoptante extends Model
         'correo',
         'sexo',
         'id_localidad',
-        'barrio_viv',
+        'id_barrio',
+        'id_tipo',
         'rol',
     ];
 
     // Relaciones
     public function tipoDocumento()
     {
-        return $this->belongsTo(TipoDocum::class, 'tipo_docum', 'id_tipo');
+        return $this->belongsTo(TipoDocum::class, 'id_tipo', 'id_tipo');
     }
 
     public function localidad()
@@ -34,8 +35,9 @@ class Adoptante extends Model
         return $this->belongsTo(LocalidadUsu::class, 'id_localidad', 'id_localidad');
     }
 
-    public function barrio()
-    {
-        return $this->belongsTo(Barrio::class, 'barrio_viv', 'id_barrio');
-    }
+   public function barrio()
+{
+    return $this->belongsTo(Barrio::class, 'id_barrio');
+}
+
 }

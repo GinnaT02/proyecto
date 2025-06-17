@@ -253,3 +253,33 @@ color: #111;
 .container form {
 margin-top: 20px;
 }
+
+    .input-estandar {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #dcaee3;
+        color: #000;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #c98bd1;
+    }
+
+    label {
+        display: block;
+        margin-top: 8px;
+        margin-bottom: 4px;
+        font-weight: bold;
+    }

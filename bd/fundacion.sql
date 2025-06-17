@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-06-2025 a las 22:09:05
+-- Tiempo de generación: 17-06-2025 a las 23:19:27
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -37,6 +37,13 @@ CREATE TABLE `adopciones` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `adopciones`
+--
+
+INSERT INTO `adopciones` (`id_adopcion`, `id_mascota`, `id_adoptante`, `fecha_adopcion`, `observaciones`, `created_at`, `updated_at`) VALUES
+(1, 8, 3, '2025-06-17', NULL, '2025-06-18 02:18:58', '2025-06-18 02:18:58');
+
 -- --------------------------------------------------------
 
 --
@@ -49,6 +56,7 @@ CREATE TABLE `adoptantes` (
   `telefono` varchar(20) DEFAULT NULL,
   `direccion` varchar(100) DEFAULT NULL,
   `edad` int(11) DEFAULT NULL,
+  `nro_docum` int(11) DEFAULT NULL,
   `correo` varchar(100) DEFAULT NULL,
   `sexo` enum('M','F','Otro') DEFAULT NULL,
   `id_tipo` bigint(20) UNSIGNED DEFAULT NULL,
@@ -58,6 +66,13 @@ CREATE TABLE `adoptantes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `adoptantes`
+--
+
+INSERT INTO `adoptantes` (`id_adoptante`, `nombres`, `telefono`, `direccion`, `edad`, `nro_docum`, `correo`, `sexo`, `id_tipo`, `id_localidad`, `id_barrio`, `rol`, `created_at`, `updated_at`) VALUES
+(3, 's', '2', '2', 2, 2, '2@2', 'M', 1, 15, 1, 'adoptante', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -72,6 +87,14 @@ CREATE TABLE `barrio` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `barrio`
+--
+
+INSERT INTO `barrio` (`id_barrio`, `nombre_barrio`, `created_at`, `updated_at`) VALUES
+(1, 'b', NULL, NULL),
+(2, 'bbb', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -82,13 +105,6 @@ CREATE TABLE `detalle_condicion` (
   `id_condicion` bigint(20) UNSIGNED NOT NULL,
   `descripcion` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `detalle_condicion`
---
-
-INSERT INTO `detalle_condicion` (`id_condicion`, `descripcion`) VALUES
-(5, 'Es un perro agresivo');
 
 -- --------------------------------------------------------
 
@@ -180,13 +196,6 @@ CREATE TABLE `historia_clinica` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Volcado de datos para la tabla `historia_clinica`
---
-
-INSERT INTO `historia_clinica` (`id_historia`, `id_mascota`, `fecha_chequeo`, `peso`, `tratamiento`, `observaciones`, `cuidados`, `created_at`, `updated_at`) VALUES
-(1, 6, '2025-06-11', 60.00, 'Ninguno', 'Agresivo', 'Ninguno', '2025-06-13 22:05:43', '2025-06-13 22:34:28');
-
 -- --------------------------------------------------------
 
 --
@@ -202,13 +211,6 @@ CREATE TABLE `imagenes` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Volcado de datos para la tabla `imagenes`
---
-
-INSERT INTO `imagenes` (`id_imagen`, `id_mascota`, `nombre`, `ruta`, `created_at`, `updated_at`) VALUES
-(1, 6, 'Paco Agresivo', 'storage/imagenes/1749834436_pacoo.jpg', '2025-06-13 22:07:16', '2025-06-13 22:34:48');
-
 -- --------------------------------------------------------
 
 --
@@ -221,6 +223,32 @@ CREATE TABLE `localidad_usu` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `localidad_usu`
+--
+
+INSERT INTO `localidad_usu` (`id_localidad`, `nombre_localidad`, `created_at`, `updated_at`) VALUES
+(1, 'Antonio Nariño', NULL, NULL),
+(2, 'Barrios Unidos', NULL, NULL),
+(3, 'Bosa', NULL, NULL),
+(4, 'Chapinero', NULL, NULL),
+(5, 'Ciudad Bolívar', NULL, NULL),
+(6, 'Engativá', NULL, NULL),
+(7, 'Fontibón', NULL, NULL),
+(8, 'Kennedy', NULL, NULL),
+(9, 'La Candelaria', NULL, NULL),
+(10, 'Los Mártires', NULL, NULL),
+(11, 'Puente Aranda', NULL, NULL),
+(12, 'Rafael Uribe Uribe', NULL, NULL),
+(13, 'San Cristóbal', NULL, NULL),
+(14, 'Santa Fe', NULL, NULL),
+(15, 'Suba', NULL, NULL),
+(16, 'Sumapaz', NULL, NULL),
+(17, 'Teusaquillo', NULL, NULL),
+(18, 'Tunjuelito', NULL, NULL),
+(19, 'Usaquén', NULL, NULL),
+(20, 'Usme', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -251,7 +279,7 @@ CREATE TABLE `mascota` (
 --
 
 INSERT INTO `mascota` (`id_mascota`, `nombre_mascota`, `edad`, `vacunado`, `peligroso`, `esterilizado`, `destetado`, `genero`, `imagen`, `crianza`, `fecha_ingreso`, `condiciones_especiales`, `raza_id`, `condicion_id`, `estado_id`) VALUES
-(6, 'Paco', 9, 1, 1, 1, 0, 'Macho', 'imagenes/Vh6qaHtZrEQk01EV3EmN2Rnhr6TzevuWuBzabgCr.png', 0, '2025-06-11', 1, 1, 5, 6);
+(8, 'ss', 22, 1, 1, 1, 1, 'Macho', 'imagenes/RaMvyMJP3Whl2WSAHU7Oe1adJ7C9OalvY5QKsVas.png', 1, '2025-06-20', 0, 7, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -352,7 +380,9 @@ INSERT INTO `razas` (`id_raza`, `nombre_raza`) VALUES
 (4, 'kokeradasdasdasd'),
 (2, 'koko'),
 (3, 'kokw'),
-(5, 's');
+(5, 's'),
+(6, 'sds'),
+(7, 'ss');
 
 -- --------------------------------------------------------
 
@@ -366,6 +396,16 @@ CREATE TABLE `tipo_docum` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_docum`
+--
+
+INSERT INTO `tipo_docum` (`id_tipo`, `nombre_tipo`, `created_at`, `updated_at`) VALUES
+(1, 'Cédula de Ciudadanía', NULL, NULL),
+(2, 'Cédula de Extranjería', NULL, NULL),
+(3, 'Pasaporte', NULL, NULL),
+(4, 'NIT', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -528,25 +568,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `adopciones`
 --
 ALTER TABLE `adopciones`
-  MODIFY `id_adopcion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_adopcion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `adoptantes`
 --
 ALTER TABLE `adoptantes`
-  MODIFY `id_adoptante` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_adoptante` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `barrio`
 --
 ALTER TABLE `barrio`
-  MODIFY `id_barrio` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_barrio` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_condicion`
 --
 ALTER TABLE `detalle_condicion`
-  MODIFY `id_condicion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_condicion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_donacion`
@@ -576,25 +616,25 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de la tabla `historia_clinica`
 --
 ALTER TABLE `historia_clinica`
-  MODIFY `id_historia` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_historia` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  MODIFY `id_imagen` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_imagen` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `localidad_usu`
 --
 ALTER TABLE `localidad_usu`
-  MODIFY `id_localidad` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_localidad` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `mascota`
 --
 ALTER TABLE `mascota`
-  MODIFY `id_mascota` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_mascota` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -618,13 +658,13 @@ ALTER TABLE `presentacion`
 -- AUTO_INCREMENT de la tabla `razas`
 --
 ALTER TABLE `razas`
-  MODIFY `id_raza` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_raza` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_docum`
 --
 ALTER TABLE `tipo_docum`
-  MODIFY `id_tipo` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tipo` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
