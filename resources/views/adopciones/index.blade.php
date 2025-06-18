@@ -22,7 +22,7 @@
         @foreach($adopciones as $a)
         <tr>
             <td>{{ $a->mascota->nombre_mascota ?? '-' }}</td>
-            <td>{{ $a->adoptante->nombre ?? '-' }}</td>
+            <td>{{ $a->adoptante->nombres ?? '-' }}</td>
             <td>{{ $a->fecha_adopcion }}</td>
             <td>{{ $a->observaciones }}</td>
             <td>

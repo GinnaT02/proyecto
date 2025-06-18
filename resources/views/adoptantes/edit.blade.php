@@ -33,8 +33,10 @@
     @endforeach
 </select>
 
+    <div class="form-group">
     <label>Correo:</label>
-    <input type="email" name="correo" value="{{ old('correo', $adoptante->correo) }}">
+    <input type="email" name="correo" class="form-control" value="{{ old('correo', $adoptante->correo) }}">
+</div>
 
     <label>Sexo:</label>
     <select name="sexo" required>

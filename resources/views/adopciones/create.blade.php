@@ -18,7 +18,9 @@
     <select name="id_adoptante" required>
         <option value="">-- Seleccione un adoptante --</option>
         @foreach($adoptantes as $a)
-            <option value="{{ $a->id_adoptante }}">{{ $a->nombre }}</option>
+            <option value="{{ $a->id_adoptante }}">
+                {{ $a->nombres }}
+            </option>
         @endforeach
     </select>
 

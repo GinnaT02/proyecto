@@ -36,16 +36,17 @@ class AdoptanteController extends Controller
             'correo' => 'nullable|email|max:100',
             'sexo' => 'nullable|string|max:10',
             'id_localidad' => 'required|exists:localidad_usu,id_localidad',
-            'barrio_viv' => 'required|string|max:100',
+            'barrio_viv' => $data['barrio_viv'],
             'rol' => 'required|in:adoptante,donante,ambos',
         ]);
 
-        // Buscar o crear el barrio según nombre y localidad
+        
         $barrio = Barrio::firstOrCreate(
-            [
-                'nombre_barrio' => $data['barrio_viv'],
-            ]
-        );
+    [
+        'nombre_barrio' => $data['barrio_viv'],
+        'id_localidad' => $data['id_localidad'],
+    ]
+);
 
         Adoptante::create([
             'nombres' => $data['nombres'],

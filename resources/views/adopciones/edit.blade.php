@@ -3,7 +3,7 @@
 @section('content')
 <h1>Editar Adopción</h1>
 
-<form action="{{ route('adopciones.update', $adopcion) }}" method="POST">
+<form action="{{ route('adopciones.update', ['adopcion' => $adopcion->id_adopcion]) }}" method="POST">
     @csrf
     @method('PUT')
 
@@ -20,7 +20,7 @@
     <select name="id_adoptante" required>
         @foreach($adoptantes as $a)
             <option value="{{ $a->id_adoptante }}" {{ $adopcion->id_adoptante == $a->id_adoptante ? 'selected' : '' }}>
-                {{ $a->nombre }}
+                {{ $a->nombres }}
             </option>
         @endforeach
     </select>
