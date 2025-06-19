@@ -109,8 +109,8 @@ body {
 }
 
 /* Tablas */
-table {
-    width: 100%;
+.table {
+    width: 50%;
     border-collapse: collapse;
     background: white;
     box-shadow: 0 0 5px rgba(0,0,0,0.1);
@@ -131,7 +131,7 @@ th, td {
 }
 
 tbody tr:hover {
-    background-color: #ffffff;
+    background-color: #49474782;
 }
 
 /* Formularios inline (para el delete) */
@@ -240,7 +240,7 @@ font-size: 1rem;
 margin-top: 10px;
 padding: 10px;
 border-left: 3px solid #f5d2f2;
-background-color: #fff7fd;
+background-color: #d81eaa;
 border-radius: 4px;
 }
 
@@ -283,3 +283,66 @@ margin-top: 20px;
         margin-bottom: 4px;
         font-weight: bold;
     }
+y
+  /* Contenedor */
+  #miTabla_wrapper {
+    padding: 20px;
+    margin: auto;
+    max-width: 95%;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* Cabecera */
+table.dataTable thead {
+    background-color: #f5d2f2;
+}
+
+table.dataTable thead th {
+    padding: 10px 12px;
+    font-weight: bold;
+    border-bottom: 2px solid #ccc;
+    text-align: center;
+}
+
+/* Cuerpo */
+table.dataTable tbody td {
+    padding: 8px 12px;
+    vertical-align: middle;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+/* Hover fila */
+table.dataTable tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Botones */
+table.dataTable td .btn {
+    margin: 0 2px;
+}
+
+/* Eliminar botón más chico */
+.btn-sm {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+}
+
+/* Paginador y búsqueda */
+.dataTables_filter input,
+.dataTables_length select {
+    padding: 5px 8px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* Borde de imagen */
+table.dataTable img {
+    max-width: 60px;
+    height: auto;
+    border-radius: 4px;
+}
+
