@@ -44,7 +44,7 @@
     </select>
 
     <label>Raza:</label>
-    <input type="text" name="nombre_raza" value="{{ ('nombre_raza', $mascota->raza->nombre_raza ?? '') }}" required>
+    <input type="text" name="nombre_raza" value="{{ ('nombre_raza')}}" required>
 
     <label>Estado:</label>
     <select name="estado_id" required>

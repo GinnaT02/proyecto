@@ -36,7 +36,7 @@ class AdoptanteController extends Controller
             'correo' => 'nullable|email|max:100',
             'sexo' => 'nullable|string|max:10',
             'id_localidad' => 'required|exists:localidad_usu,id_localidad',
-            'barrio_viv' => $data['barrio_viv'],
+            'barrio_viv' => ['barrio_viv'],
             'rol' => 'required|in:adoptante,donante,ambos',
         ]);
 
