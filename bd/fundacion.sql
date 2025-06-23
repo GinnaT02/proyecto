@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-06-2025 a las 20:25:23
+-- Tiempo de generación: 24-06-2025 a las 00:12:14
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -72,6 +72,7 @@ CREATE TABLE `adoptantes` (
 --
 
 INSERT INTO `adoptantes` (`id_adoptante`, `nombres`, `telefono`, `direccion`, `edad`, `nro_docum`, `correo`, `sexo`, `id_tipo`, `id_localidad`, `id_barrio`, `rol`, `created_at`, `updated_at`) VALUES
+(2, 'erewr', '23', 'tv ', 23, 22323, 'valetc1822@gmail.com', 'F', 1, 13, 1, 'adoptante', NULL, NULL),
 (3, 's', '2', '2', 2, 2, '2@2', 'M', 1, 18, 5, 'adoptante', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -121,7 +122,6 @@ CREATE TABLE `detalle_donacion` (
   `id_donacion` bigint(20) UNSIGNED NOT NULL,
   `descripcion_producto` varchar(255) NOT NULL,
   `cantidad` int(11) NOT NULL,
-  `presentacion_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -141,6 +141,13 @@ CREATE TABLE `donaciones` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `donaciones`
+--
+
+INSERT INTO `donaciones` (`id_donacion`, `tipo`, `cantidad`, `fecha`, `id_adoptante`, `created_at`, `updated_at`) VALUES
+(2, 'Bachillerato', 5.00, '2025-06-22', 3, '2025-06-23 04:00:25', '2025-06-23 04:00:25');
 
 -- --------------------------------------------------------
 
@@ -333,7 +340,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2025_06_07_000010_create_adopciones_table', 1),
 (16, '2025_06_07_000011_create_imagenes_table', 1),
 (17, '2025_06_07_000012_create_donaciones_table', 1),
-(18, '2025_06_07_000013_create_detalle_donacion_table', 1);
+(18, '2025_06_07_000013_create_detalle_donacion_table', 1),
+(19, '2025_06_22_215148_remove_presentacion_id_from_detalle_donacion_table', 2),
+(20, '2025_06_22_215527_drop_presentacion_table', 3);
 
 -- --------------------------------------------------------
 
@@ -361,19 +370,6 @@ CREATE TABLE `personal_access_tokens` (
   `token` varchar(64) NOT NULL,
   `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `presentacion`
---
-
-CREATE TABLE `presentacion` (
-  `id_presentac` bigint(20) UNSIGNED NOT NULL,
-  `descripcion` varchar(100) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -481,8 +477,7 @@ ALTER TABLE `detalle_condicion`
 --
 ALTER TABLE `detalle_donacion`
   ADD PRIMARY KEY (`id_detalle`),
-  ADD KEY `detalle_donacion_id_donacion_foreign` (`id_donacion`),
-  ADD KEY `detalle_donacion_presentacion_id_foreign` (`presentacion_id`);
+  ADD KEY `detalle_donacion_id_donacion_foreign` (`id_donacion`);
 
 --
 -- Indices de la tabla `donaciones`
@@ -555,12 +550,6 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indices de la tabla `presentacion`
---
-ALTER TABLE `presentacion`
-  ADD PRIMARY KEY (`id_presentac`);
-
---
 -- Indices de la tabla `razas`
 --
 ALTER TABLE `razas`
@@ -618,7 +607,7 @@ ALTER TABLE `detalle_donacion`
 -- AUTO_INCREMENT de la tabla `donaciones`
 --
 ALTER TABLE `donaciones`
-  MODIFY `id_donacion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_donacion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `estados`
@@ -660,19 +649,13 @@ ALTER TABLE `mascota`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `presentacion`
---
-ALTER TABLE `presentacion`
-  MODIFY `id_presentac` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `razas`
@@ -721,8 +704,7 @@ ALTER TABLE `barrio`
 -- Filtros para la tabla `detalle_donacion`
 --
 ALTER TABLE `detalle_donacion`
-  ADD CONSTRAINT `detalle_donacion_id_donacion_foreign` FOREIGN KEY (`id_donacion`) REFERENCES `donaciones` (`id_donacion`) ON DELETE CASCADE,
-  ADD CONSTRAINT `detalle_donacion_presentacion_id_foreign` FOREIGN KEY (`presentacion_id`) REFERENCES `presentacion` (`id_presentac`);
+  ADD CONSTRAINT `detalle_donacion_id_donacion_foreign` FOREIGN KEY (`id_donacion`) REFERENCES `donaciones` (`id_donacion`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `donaciones`
