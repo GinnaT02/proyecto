@@ -79,7 +79,7 @@
     </div>
 
     <br><br>
-    <button type="submit" class="btn btn-primary">Actualizar</button>
+    <button type="submit" class="btn-guardar">Actualizar</button>
 </form>
 
 <script>

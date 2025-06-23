@@ -3,7 +3,7 @@
 @section('content')
 <h1>Listado de Historias Clínicas</h1>
 
-<a href="{{ route('historia_clinicas.create') }}" class="btn btn-primary mb-3">Registrar Historia Clínica</a>
+<a href="{{ route('historia_clinicas.create') }}" class="boton">Registrar Historia Clínica</a>
 
 @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>

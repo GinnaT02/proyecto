@@ -21,6 +21,6 @@
     <input type="file" name="ruta" required>
 
     <br><br>
-    <button type="submit" class="btn btn-primary">Guardar Imagen</button>
+    <button type="submit" class="btn-guardar">Guardar Imagen</button>
 </form>
 @endsection

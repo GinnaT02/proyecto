@@ -3,12 +3,13 @@
 @section('content')
 
 <h1>Listado de Mascotas</h1>
-<a href="{{ route('mascotas.create') }}" class="btn btn-primary mb-3">Registrar Mascota</a>
+<a href="{{ route('mascotas.create') }}" class="boton">Registrar Mascota</a>
 
 @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
+<div class="tabla-scroll">
 <table class="table" id="miTabla">
     <thead>
         <tr>
@@ -64,5 +65,6 @@
         @endforeach
     </tbody>
 </table>
+</div>
 {{ $mascotas->links() }}
 @endsection

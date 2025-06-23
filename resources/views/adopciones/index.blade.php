@@ -2,7 +2,7 @@
 
 @section('content')
 <h1>Listado de Adopciones</h1>
-<a href="{{ route('adopciones.create') }}" class="btn btn-primary mb-3">Registrar Adopción</a>
+<a href="{{ route('adopciones.create') }}" class="boton">Registrar Adopción</a>
 
 @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>

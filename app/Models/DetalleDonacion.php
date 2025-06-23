@@ -25,8 +25,4 @@ class DetalleDonacion extends Model
         return $this->belongsTo(Donacion::class, 'id_donacion');
     }
 
-    public function presentacion()
-    {
-        return $this->belongsTo(Presentacion::class, 'presentacion_id');
-    }
 }

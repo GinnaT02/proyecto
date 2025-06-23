@@ -3,12 +3,13 @@
 @section('content')
 <h1>Listado de Adoptantes</h1>
 
-<a href="{{ route('adoptantes.create') }}" class="btn btn-primary mb-3">Registrar Adoptante</a>
+<a href="{{ route('adoptantes.create') }}" class="boton">Registrar Adoptante</a>
 
 @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
+<div class="listado2">
 <table class="table">
     <thead>
         <tr>
@@ -52,6 +53,7 @@
         @endforeach
     </tbody>
 </table>
+</div>
 
 {{ $adoptantes->links() }}
 @endsection

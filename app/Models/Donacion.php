@@ -29,4 +29,9 @@ class Donacion extends Model
     {
         return $this->hasMany(DetalleDonacion::class, 'id_donacion');
     }
+    public function getRouteKeyName()
+{
+    return 'id_donacion';
+}
+
 }

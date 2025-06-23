@@ -3,7 +3,7 @@
 @section('content')
 <h1>Listado de Imágenes de la Galería</h1>
 
-<a href="{{ route('galeria.create') }}" class="btn btn-primary mb-3">Registrar Imagen</a>
+<a href="{{ route('galeria.create') }}" class="boton">Registrar Imagen</a>
 
 @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>

@@ -63,6 +63,6 @@
         </select>
 
         <br><br>
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn-guardar">Guardar</button>
     </form>
 @endsection
