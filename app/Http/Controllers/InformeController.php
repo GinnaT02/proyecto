@@ -2,50 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rescatado;
+use App\Models\Donacion;
 use App\Models\Adoptante;
+use App\Models\Mascota;
+use App\Models\Adopcion;
 use App\Models\HistoriaClinica;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class InformeController extends Controller
 {
     public function index()
     {
-        $totalRescatados = Rescatado::count();
-        $totalAdoptantes = Adoptante::count();
+        return view('informes.index');
+    }
 
-        $adoptadosDia = Rescatado::whereNotNull('adoptante_id')->where('created_at', '>=', now()->subDay())->count();
-        $adoptadosSemana = Rescatado::whereNotNull('adoptante_id')->where('created_at', '>=', now()->subWeek())->count();
-        $adoptadosMes = Rescatado::whereNotNull('adoptante_id')->where('created_at', '>=', now()->subMonth())->count();
-        $adoptadosAnio = Rescatado::whereNotNull('adoptante_id')->where('created_at', '>=', now()->subYear())->count();
-        $adoptantesConMasDeUno = Rescatado::select('adoptante_id')
-            ->whereNotNull('adoptante_id')
-            ->groupBy('adoptante_id')
-            ->havingRaw('COUNT(*) > 1')
-            ->count();
+    public function donacionesPDF()
+    {
+        $donaciones = Donacion::with(['adoptante', 'detalles'])->get();
+        $pdf = Pdf::loadView('informes.donaciones_pdf', compact('donaciones'));
+        return $pdf->download('informe_donaciones.pdf');
+    }
 
-        $rescatadosDia = Rescatado::where('created_at', '>=', now()->subDay())->count();
-        $rescatadosSemana = Rescatado::where('created_at', '>=', now()->subWeek())->count();
-        $rescatadosMes = Rescatado::where('created_at', '>=', now()->subMonth())->count();
-        $rescatadosAnio = Rescatado::where('created_at', '>=', now()->subYear())->count();
-        $rescatadosCondiciones = Rescatado::where('condiciones_especiales', true)->count();
-        $historias = HistoriaClinica::with('rescatado')->orderBy('created_at', 'desc')->get();
+    public function adoptantesPDF()
+    {
+        $adoptantes = Adoptante::with(['tipoDocumento', 'localidad', 'barrio'])->get();
+        $pdf = Pdf::loadView('informes.adoptantes_pdf', compact('adoptantes'));
+        return $pdf->download('informe_adoptantes.pdf');
+    }
 
-        return view('informes.index', compact(
-            'totalRescatados',
-            'totalAdoptantes',
-            'adoptadosDia',
-            'adoptadosSemana',
-            'adoptadosMes',
-            'adoptadosAnio',
-            'adoptantesConMasDeUno',
-            'rescatadosDia',
-            'rescatadosSemana',
-            'rescatadosMes',
-            'rescatadosAnio',
-            'rescatadosCondiciones',
-            'historias'
-        ));
+    public function mascotasPDF()
+    {
+        $mascotas = Mascota::with(['raza', 'estado', 'condicion'])->get();
+        $pdf = Pdf::loadView('informes.mascotas_pdf', compact('mascotas'));
+        return $pdf->download('informe_mascotas.pdf');
+    }
+
+    public function adopcionesPDF()
+    {
+        $adopciones = Adopcion::with(['mascota', 'adoptante'])->get();
+        $pdf = Pdf::loadView('informes.adopciones_pdf', compact('adopciones'));
+        return $pdf->download('informe_adopciones.pdf');
+    }
+
+    public function historiasPDF()
+    {
+        $historias = HistoriaClinica::with('mascota')->get();
+        $pdf = Pdf::loadView('informes.historias_pdf', compact('historias'));
+        return $pdf->download('informe_historias.pdf');
     }
 }

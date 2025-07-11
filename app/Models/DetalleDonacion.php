@@ -7,22 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class DetalleDonacion extends Model
 {
-    use HasFactory;
+    protected $table      = 'detalle_donacion';
+    protected $primaryKey = 'id_detalle';
 
-    protected $table = 'detalle_donacion';
-
-    protected $primaryKey = 'id_condicion';
-
-    protected $fillable = [
-        'id_donacion',
-        'descripcion_producto',
-        'cantidad',
-        'presentacion_id',
-    ];
+    protected $fillable = ['id_donacion', 'descripcion_producto'];
 
     public function donacion()
     {
         return $this->belongsTo(Donacion::class, 'id_donacion');
     }
-
 }

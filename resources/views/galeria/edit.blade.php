@@ -19,8 +19,13 @@
     <label>Nombre de la Imagen:</label>
     <input type="text" name="nombre" value="{{ $imagen->nombre }}" required>
 
-    <label>Ruta:</label>
-    <input type="text" name="ruta" value="{{ $imagen->ruta }}" required>
+    <label>Imagen actual:</label><br>
+    @if($imagen->ruta)
+        <img src="{{ asset($imagen->ruta) }}" alt="Imagen actual" style="max-width: 200px; display:block; margin-bottom:10px;">
+    @endif
+
+    <label>Reemplazar imagen:</label>
+    <input type="file" name="nueva_ruta" accept="image/*">
 
     <br><br>
     <button type="submit" class="btn-guardar">Actualizar</button>

@@ -6,11 +6,12 @@
     <form action="{{ route('donaciones.store') }}" method="POST">
         @csrf
 
+        {{-- Datos generales de la donación --}}
         <label for="tipo">Tipo de Donación:</label>
         <input type="text" name="tipo" required>
 
-        <label for="cantidad">Cantidad:</label>
-        <input type="number" step="0.01" name="cantidad">
+        <label for="cantidad">Cantidad (monto, unidades, etc.):</label>
+        <input type="number" step="0.01" name="cantidad" required>
 
         <label for="fecha">Fecha:</label>
         <input type="date" name="fecha" required>
@@ -22,6 +23,11 @@
             @endforeach
         </select>
 
-        <button type="submit" class="btn-guardar">Guardar</button>
+        {{-- Producto (detalle_donacion) --}}
+        <h3>Descripción de la donacion</h3>
+        <label for="descripcion_producto">Descripción:</label>
+        <input type="text" name="descripcion_producto" required>
+
+        <button type="submit" class="btn-guardar mt-3">Guardar</button>
     </form>
 @endsection

@@ -28,7 +28,7 @@
     <input type="date" name="fecha_adopcion" required>
 
     <label>Observaciones:</label>
-    <textarea name="observaciones"></textarea>
+    <textarea name="observaciones" required>{{ old('observaciones', $adopcion->observaciones ?? '') }}</textarea>
 
     <br><br>
     <button type="submit" class="btn-guardar">Guardar</button>

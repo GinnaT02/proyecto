@@ -20,7 +20,7 @@
                 <a href="{{ route('historia_clinicas.index') }}" class="nav-link">🩺 Historias Clínicas</a>
                 <a href="{{ route('galeria.index') }}" class="nav-link">🖼️ Galería</a>
                 <a href="{{ route('donaciones.index') }}" class="nav-link">🤝 Donaciones</a>
-                <a href="{{ route('detalle_donacion.index') }}" class="nav-link">🤝 Detalle donacion</a>
+                <a href="{{ route('informes.index') }}" class="nav-link">📊 Informes</a>
             </nav>
         </aside>
 

@@ -28,7 +28,7 @@ class AdopcionController extends Controller
             'id_mascota' => 'required|exists:mascota,id_mascota',
             'id_adoptante' => 'required|exists:adoptantes,id_adoptante',
             'fecha_adopcion' => 'nullable|date',
-            'observaciones' => 'nullable|string|max:255'
+            'observaciones' => 'required|string|max:255'
         ]);
 
         Adopcion::create($data);
@@ -49,7 +49,7 @@ class AdopcionController extends Controller
             'id_mascota' => 'required|exists:mascota,id_mascota',
             'id_adoptante' => 'required|exists:adoptantes,id_adoptante',
             'fecha_adopcion' => 'nullable|date',
-            'observaciones' => 'nullable|string|max:255'
+            'observaciones' => 'required|string|max:255'
         ]);
 
         $adopcion->update($data);

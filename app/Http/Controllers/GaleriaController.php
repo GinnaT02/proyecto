@@ -66,28 +66,29 @@ public function index()
     }
 
     public function update(Request $request, $id)
-    {
-        $request->validate([
-            'id_mascota' => 'required|exists:mascota,id_mascota',
-            'nombre'     => 'required|string|max:100',
-            'ruta'       => 'required|string|max:255',
-        ]);
+{
+    $imagen = Galeria::findOrFail($id);
 
+    $request->validate([
+        'id_mascota' => 'required|exists:mascota,id_mascota',
+        'nombre'     => 'required|string|max:100',
+        'nueva_ruta' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
 
-        $imagen = Galeria::findOrFail($id);
+    $datos = $request->only(['id_mascota', 'nombre']);
 
-
-        $imagen->update($request->all());
-
-        return redirect()->route('galeria.index')->with('success', 'Registro actualizado.');
+    // Si hay una nueva imagen, la subimos y reemplazamos
+    if ($request->hasFile('nueva_ruta')) {
+        $file = $request->file('nueva_ruta');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $ruta = $file->storeAs('imagenes', $filename, 'public');
+        $datos['ruta'] = 'storage/' . $ruta;
     }
 
-    public function destroy($id)
-    {
-        $imagen = Galeria::findOrFail($id);
+    $imagen->update($datos);
 
-        $imagen->delete();
+    return redirect()->route('galeria.index')->with('success', 'Registro actualizado.');
+}
 
-        return redirect()->route('galeria.index')->with('success', 'Registro eliminado.');
-    }
+
 }

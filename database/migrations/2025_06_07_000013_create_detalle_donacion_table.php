@@ -17,14 +17,8 @@ return new class extends Migration
             $table->id('id_detalle');
             $table->unsignedBigInteger('id_donacion');
             $table->string('descripcion_producto');
-            $table->integer('cantidad');
             $table->timestamps();
-
-            $table->foreign('id_donacion')
-                  ->references('id_donacion')
-                  ->on('donaciones')
-                  ->onDelete('cascade');
-        });
+            $table->foreign('id_donacion') ->references('id_donacion')->on('donaciones')->onDelete('cascade');});
     }
 
     /**
