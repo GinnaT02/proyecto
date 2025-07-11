@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-06-2025 a las 00:12:14
+-- Tiempo de generación: 11-07-2025 a las 05:31:44
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -42,7 +42,7 @@ CREATE TABLE `adopciones` (
 --
 
 INSERT INTO `adopciones` (`id_adopcion`, `id_mascota`, `id_adoptante`, `fecha_adopcion`, `observaciones`, `created_at`, `updated_at`) VALUES
-(4, 8, 3, '2025-06-18', 'hola', '2025-06-18 23:19:04', '2025-06-18 23:19:09');
+(1, 1, 1, '2025-07-01', 'dasdasdad', '2025-07-02 05:47:23', '2025-07-11 07:42:47');
 
 -- --------------------------------------------------------
 
@@ -52,17 +52,17 @@ INSERT INTO `adopciones` (`id_adopcion`, `id_mascota`, `id_adoptante`, `fecha_ad
 
 CREATE TABLE `adoptantes` (
   `id_adoptante` bigint(20) UNSIGNED NOT NULL,
-  `nombres` varchar(100) NOT NULL,
-  `telefono` varchar(20) DEFAULT NULL,
-  `direccion` varchar(100) DEFAULT NULL,
+  `nombres` varchar(255) NOT NULL,
+  `telefono` varchar(255) DEFAULT NULL,
+  `direccion` varchar(255) DEFAULT NULL,
   `edad` int(11) DEFAULT NULL,
-  `nro_docum` int(11) DEFAULT NULL,
-  `correo` varchar(100) DEFAULT NULL,
-  `sexo` enum('M','F','Otro') DEFAULT NULL,
-  `id_tipo` bigint(20) UNSIGNED DEFAULT NULL,
-  `id_localidad` bigint(20) UNSIGNED DEFAULT NULL,
-  `id_barrio` bigint(20) UNSIGNED DEFAULT NULL,
-  `rol` enum('adoptante','donante','ambos') NOT NULL DEFAULT 'adoptante',
+  `nro_docum` varchar(255) NOT NULL,
+  `id_tipo` bigint(20) UNSIGNED NOT NULL,
+  `correo` varchar(255) DEFAULT NULL,
+  `sexo` enum('M','F','O') DEFAULT NULL,
+  `id_localidad` bigint(20) UNSIGNED NOT NULL,
+  `id_barrio` bigint(20) UNSIGNED NOT NULL,
+  `rol` varchar(255) NOT NULL DEFAULT 'usuario',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -71,9 +71,8 @@ CREATE TABLE `adoptantes` (
 -- Volcado de datos para la tabla `adoptantes`
 --
 
-INSERT INTO `adoptantes` (`id_adoptante`, `nombres`, `telefono`, `direccion`, `edad`, `nro_docum`, `correo`, `sexo`, `id_tipo`, `id_localidad`, `id_barrio`, `rol`, `created_at`, `updated_at`) VALUES
-(2, 'erewr', '23', 'tv ', 23, 22323, 'valetc1822@gmail.com', 'F', 1, 13, 1, 'adoptante', NULL, NULL),
-(3, 's', '2', '2', 2, 2, '2@2', 'M', 1, 18, 5, 'adoptante', NULL, NULL);
+INSERT INTO `adoptantes` (`id_adoptante`, `nombres`, `telefono`, `direccion`, `edad`, `nro_docum`, `id_tipo`, `correo`, `sexo`, `id_localidad`, `id_barrio`, `rol`, `created_at`, `updated_at`) VALUES
+(1, 'Santiago Godoy', '3053468635', 'cra130#143a13', 21, '1001119500', 1, 'castillogodoysantiago@gmail.com', 'M', 15, 1, 'donante', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -84,21 +83,17 @@ INSERT INTO `adoptantes` (`id_adoptante`, `nombres`, `telefono`, `direccion`, `e
 CREATE TABLE `barrio` (
   `id_barrio` bigint(20) UNSIGNED NOT NULL,
   `nombre_barrio` varchar(100) NOT NULL,
+  `id_localidad` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `id_localidad` bigint(20) UNSIGNED DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `barrio`
 --
 
-INSERT INTO `barrio` (`id_barrio`, `nombre_barrio`, `created_at`, `updated_at`, `id_localidad`) VALUES
-(1, 'b', NULL, NULL, NULL),
-(2, 'bbb', NULL, NULL, NULL),
-(3, 'San Andres', NULL, NULL, NULL),
-(4, 'San Andres', NULL, NULL, 15),
-(5, 'bhgh', NULL, NULL, 18);
+INSERT INTO `barrio` (`id_barrio`, `nombre_barrio`, `id_localidad`, `created_at`, `updated_at`) VALUES
+(1, 'Bilbao', 15, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -111,6 +106,13 @@ CREATE TABLE `detalle_condicion` (
   `descripcion` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `detalle_condicion`
+--
+
+INSERT INTO `detalle_condicion` (`id_condicion`, `descripcion`) VALUES
+(3, 'Mordelon');
+
 -- --------------------------------------------------------
 
 --
@@ -121,10 +123,16 @@ CREATE TABLE `detalle_donacion` (
   `id_detalle` bigint(20) UNSIGNED NOT NULL,
   `id_donacion` bigint(20) UNSIGNED NOT NULL,
   `descripcion_producto` varchar(255) NOT NULL,
-  `cantidad` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_donacion`
+--
+
+INSERT INTO `detalle_donacion` (`id_detalle`, `id_donacion`, `descripcion_producto`, `created_at`, `updated_at`) VALUES
+(2, 1, 'nada', '2025-07-11 07:23:51', '2025-07-11 07:23:51');
 
 -- --------------------------------------------------------
 
@@ -147,7 +155,7 @@ CREATE TABLE `donaciones` (
 --
 
 INSERT INTO `donaciones` (`id_donacion`, `tipo`, `cantidad`, `fecha`, `id_adoptante`, `created_at`, `updated_at`) VALUES
-(2, 'Bachillerato', 5.00, '2025-06-22', 3, '2025-06-23 04:00:25', '2025-06-23 04:00:25');
+(1, 'Comida', 2.00, '2025-07-01', 1, '2025-07-02 05:49:46', '2025-07-02 05:49:46');
 
 -- --------------------------------------------------------
 
@@ -212,7 +220,7 @@ CREATE TABLE `historia_clinica` (
 --
 
 INSERT INTO `historia_clinica` (`id_historia`, `id_mascota`, `fecha_chequeo`, `peso`, `tratamiento`, `observaciones`, `cuidados`, `created_at`, `updated_at`) VALUES
-(1, 8, '2025-06-19', 22.00, 'ss', 'ss', 'ss', '2025-06-18 23:19:30', '2025-06-18 23:19:30');
+(1, 1, '2025-07-01', 70.00, 'ninguno', 'nada', 'nada', '2025-07-02 05:48:29', '2025-07-02 05:48:29');
 
 -- --------------------------------------------------------
 
@@ -234,7 +242,7 @@ CREATE TABLE `imagenes` (
 --
 
 INSERT INTO `imagenes` (`id_imagen`, `id_mascota`, `nombre`, `ruta`, `created_at`, `updated_at`) VALUES
-(1, 8, 'ss', 'storage/imagenes/1750270781_Captura de pantalla 2025-06-10 155623.png', '2025-06-18 23:19:41', '2025-06-18 23:19:41');
+(1, 1, 'Paco', 'storage/imagenes/1752204120_Captura de pantalla 2025-06-25 201818.png', '2025-07-02 05:48:48', '2025-07-11 08:22:00');
 
 -- --------------------------------------------------------
 
@@ -304,7 +312,7 @@ CREATE TABLE `mascota` (
 --
 
 INSERT INTO `mascota` (`id_mascota`, `nombre_mascota`, `edad`, `vacunado`, `peligroso`, `esterilizado`, `destetado`, `genero`, `imagen`, `crianza`, `fecha_ingreso`, `condiciones_especiales`, `raza_id`, `condicion_id`, `estado_id`) VALUES
-(8, 'ss', 22, 1, 1, 1, 1, 'Macho', 'imagenes/RaMvyMJP3Whl2WSAHU7Oe1adJ7C9OalvY5QKsVas.png', 1, '2025-06-20', 0, 7, NULL, 2);
+(1, 'Paco', 9, 1, 1, 1, 0, 'Macho', 'imagenes/H1a0SfhvRo2XDKQ5TPFKfVTN2BH5I03KBDTNCFVj.png', 1, '2025-07-01', 1, 2, 3, 6);
 
 -- --------------------------------------------------------
 
@@ -327,9 +335,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(5, '2025_06_07_000000_create_tipo_docum_table', 1),
-(6, '2025_06_07_000001_create_barrio_table', 1),
-(7, '2025_06_07_000002_create_localidad_usu_table', 1),
+(5, '2025_06_06_000001_create_localidad_usu_table', 1),
+(6, '2025_06_07_000000_create_tipo_docum_table', 1),
+(7, '2025_06_07_000001_create_barrio_table', 1),
 (8, '2025_06_07_000003_create_raza_table', 1),
 (9, '2025_06_07_000004_create_estado_table', 1),
 (10, '2025_06_07_000005_create_presentacion_table', 1),
@@ -341,8 +349,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (16, '2025_06_07_000011_create_imagenes_table', 1),
 (17, '2025_06_07_000012_create_donaciones_table', 1),
 (18, '2025_06_07_000013_create_detalle_donacion_table', 1),
-(19, '2025_06_22_215148_remove_presentacion_id_from_detalle_donacion_table', 2),
-(20, '2025_06_22_215527_drop_presentacion_table', 3);
+(19, '2025_06_22_215148_remove_presentacion_id_from_detalle_donacion_table', 1),
+(20, '2025_06_22_215527_drop_presentacion_table', 1);
 
 -- --------------------------------------------------------
 
@@ -390,13 +398,8 @@ CREATE TABLE `razas` (
 --
 
 INSERT INTO `razas` (`id_raza`, `nombre_raza`) VALUES
-(1, 'koker'),
-(4, 'kokeradasdasdasd'),
-(2, 'koko'),
-(3, 'kokw'),
-(5, 's'),
-(6, 'sds'),
-(7, 'ss');
+(1, 'Koker'),
+(2, 'nombre_raza');
 
 -- --------------------------------------------------------
 
@@ -455,6 +458,7 @@ ALTER TABLE `adopciones`
 --
 ALTER TABLE `adoptantes`
   ADD PRIMARY KEY (`id_adoptante`),
+  ADD UNIQUE KEY `adoptantes_nro_docum_unique` (`nro_docum`),
   ADD KEY `adoptantes_id_tipo_foreign` (`id_tipo`),
   ADD KEY `adoptantes_id_localidad_foreign` (`id_localidad`),
   ADD KEY `adoptantes_id_barrio_foreign` (`id_barrio`);
@@ -464,7 +468,7 @@ ALTER TABLE `adoptantes`
 --
 ALTER TABLE `barrio`
   ADD PRIMARY KEY (`id_barrio`),
-  ADD KEY `fk_barrio_id_localidad` (`id_localidad`);
+  ADD KEY `barrio_id_localidad_foreign` (`id_localidad`);
 
 --
 -- Indices de la tabla `detalle_condicion`
@@ -517,8 +521,7 @@ ALTER TABLE `imagenes`
 -- Indices de la tabla `localidad_usu`
 --
 ALTER TABLE `localidad_usu`
-  ADD PRIMARY KEY (`id_localidad`),
-  ADD UNIQUE KEY `id_localidad` (`id_localidad`);
+  ADD PRIMARY KEY (`id_localidad`);
 
 --
 -- Indices de la tabla `mascota`
@@ -577,37 +580,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `adopciones`
 --
 ALTER TABLE `adopciones`
-  MODIFY `id_adopcion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_adopcion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `adoptantes`
 --
 ALTER TABLE `adoptantes`
-  MODIFY `id_adoptante` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_adoptante` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `barrio`
 --
 ALTER TABLE `barrio`
-  MODIFY `id_barrio` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_barrio` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_condicion`
 --
 ALTER TABLE `detalle_condicion`
-  MODIFY `id_condicion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_condicion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_donacion`
 --
 ALTER TABLE `detalle_donacion`
-  MODIFY `id_detalle` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detalle` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `donaciones`
 --
 ALTER TABLE `donaciones`
-  MODIFY `id_donacion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_donacion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `estados`
@@ -643,7 +646,7 @@ ALTER TABLE `localidad_usu`
 -- AUTO_INCREMENT de la tabla `mascota`
 --
 ALTER TABLE `mascota`
-  MODIFY `id_mascota` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_mascota` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -661,7 +664,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT de la tabla `razas`
 --
 ALTER TABLE `razas`
-  MODIFY `id_raza` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_raza` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_docum`
@@ -690,15 +693,15 @@ ALTER TABLE `adopciones`
 -- Filtros para la tabla `adoptantes`
 --
 ALTER TABLE `adoptantes`
-  ADD CONSTRAINT `adoptantes_id_barrio_foreign` FOREIGN KEY (`id_barrio`) REFERENCES `barrio` (`id_barrio`) ON DELETE SET NULL,
-  ADD CONSTRAINT `adoptantes_id_localidad_foreign` FOREIGN KEY (`id_localidad`) REFERENCES `localidad_usu` (`id_localidad`) ON DELETE SET NULL,
-  ADD CONSTRAINT `adoptantes_id_tipo_foreign` FOREIGN KEY (`id_tipo`) REFERENCES `tipo_docum` (`id_tipo`) ON DELETE SET NULL;
+  ADD CONSTRAINT `adoptantes_id_barrio_foreign` FOREIGN KEY (`id_barrio`) REFERENCES `barrio` (`id_barrio`) ON DELETE CASCADE,
+  ADD CONSTRAINT `adoptantes_id_localidad_foreign` FOREIGN KEY (`id_localidad`) REFERENCES `localidad_usu` (`id_localidad`) ON DELETE CASCADE,
+  ADD CONSTRAINT `adoptantes_id_tipo_foreign` FOREIGN KEY (`id_tipo`) REFERENCES `tipo_docum` (`id_tipo`);
 
 --
 -- Filtros para la tabla `barrio`
 --
 ALTER TABLE `barrio`
-  ADD CONSTRAINT `fk_barrio_id_localidad` FOREIGN KEY (`id_localidad`) REFERENCES `localidad_usu` (`id_localidad`);
+  ADD CONSTRAINT `barrio_id_localidad_foreign` FOREIGN KEY (`id_localidad`) REFERENCES `localidad_usu` (`id_localidad`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `detalle_donacion`
