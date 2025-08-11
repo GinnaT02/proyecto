@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Donaciones')
 @section('content')
     <h1>Listado de Donaciones</h1>
 

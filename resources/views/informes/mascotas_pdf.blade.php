@@ -39,7 +39,6 @@
     <table>
         <thead>
             <tr>
-                <th>Imagen</th>
                 <th>Nombre</th>
                 <th>Edad</th>
                 <th>Género</th>
@@ -58,13 +57,6 @@
         <tbody>
             @foreach ($mascotas as $mascota)
                 <tr>
-                    <td>
-                        @if ($mascota->imagen)
-                            <img src="{{ asset('storage/' . $mascota->imagen) }}" alt="Imagen de {{ $mascota->nombre_mascota }}" width="70">
-                        @else
-                            —
-                        @endif
-                    </td>
                     <td>{{ $mascota->nombre_mascota }}</td>
                     <td>{{ $mascota->edad }}</td>
                     <td>{{ $mascota->genero }}</td>

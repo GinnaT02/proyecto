@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Galería de Imágenes')
 @section('content')
 <h1>Listado de Imágenes de la Galería</h1>
 

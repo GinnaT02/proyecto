@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('content')
+@section('title', 'Adopciones')
+@section('content') 
 <h1>Listado de Adopciones</h1>
 <a href="{{ route('adopciones.create') }}" class="boton">Registrar Adopción</a>
 

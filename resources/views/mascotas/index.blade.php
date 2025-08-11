@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Mascotas')
 @section('content')
-
 <h1>Listado de Mascotas</h1>
 <a href="{{ route('mascotas.create') }}" class="boton">Registrar Mascota</a>
 

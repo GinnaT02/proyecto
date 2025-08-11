@@ -29,7 +29,7 @@
         }
 
         th {
-            background-color: #f2d4f5; /* mismo color rosa claro que los otros informes */
+            background-color: #f2d4f5; 
         }
     </style>
 </head>

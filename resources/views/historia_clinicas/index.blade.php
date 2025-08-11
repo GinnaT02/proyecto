@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@section('title', 'Historias Clínicas')
 <h1>Listado de Historias Clínicas</h1>
 
 <a href="{{ route('historia_clinicas.create') }}" class="boton">Registrar Historia Clínica</a>

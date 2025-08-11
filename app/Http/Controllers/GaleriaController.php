@@ -23,7 +23,6 @@ public function index()
 }
 
     // -----------------------------
-    // Aquí está el método que faltaba
     // -----------------------------
  public function store(Request $request)
 {
@@ -88,6 +87,13 @@ public function index()
     $imagen->update($datos);
 
     return redirect()->route('galeria.index')->with('success', 'Registro actualizado.');
+}
+public function destroy($id)
+{
+    $imagen = Galeria::findOrFail($id);
+    $imagen->delete();
+
+    return redirect()->route('galeria.index')->with('success', 'Imagen eliminada correctamente.');
 }
 
 

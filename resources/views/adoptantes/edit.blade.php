@@ -19,8 +19,12 @@
     <label>Edad:</label>
     <input type="number" name="edad" value="{{ old('edad', $adoptante->edad) }}">
 
-    <label>Nro Documento:</label>
-    <input type="number" name="nro_docum" value="{{ old('nro_docum', $adoptante->nro_docum) }}" required>
+    <label for="nro_docum">Número de documento:</label>
+<input type="number" name="nro_docum" value="{{ old('nro_docum', $adoptante->nro_docum) }}" required>
+
+@error('nro_docum')
+<div class="alert-danger">⚠️ {{ $message }}</div>
+@enderror
 
     <label>Tipo Documento:</label>
     <select name="id_tipo" required>
