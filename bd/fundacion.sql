@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-07-2025 a las 05:31:44
+-- Tiempo de generación: 11-08-2025 a las 21:38:02
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -42,7 +42,7 @@ CREATE TABLE `adopciones` (
 --
 
 INSERT INTO `adopciones` (`id_adopcion`, `id_mascota`, `id_adoptante`, `fecha_adopcion`, `observaciones`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2025-07-01', 'dasdasdad', '2025-07-02 05:47:23', '2025-07-11 07:42:47');
+(2, 2, 3, '2025-07-11', 'oijgkegj', '2025-07-11 23:10:00', '2025-07-11 23:10:16');
 
 -- --------------------------------------------------------
 
@@ -72,7 +72,8 @@ CREATE TABLE `adoptantes` (
 --
 
 INSERT INTO `adoptantes` (`id_adoptante`, `nombres`, `telefono`, `direccion`, `edad`, `nro_docum`, `id_tipo`, `correo`, `sexo`, `id_localidad`, `id_barrio`, `rol`, `created_at`, `updated_at`) VALUES
-(1, 'Santiago Godoy', '3053468635', 'cra130#143a13', 21, '1001119500', 1, 'castillogodoysantiago@gmail.com', 'M', 15, 1, 'donante', NULL, NULL);
+(1, 'Santiago Godoy', '3053468635', 'cra130#143a13', 21, '1001119500', 1, 'castillogodoysantiago@gmail.com', 'M', 15, 1, 'ambos', NULL, NULL),
+(3, 'Ginna', '3052302520', 'cra143#130a13', 22, '1001119600', 1, 'ginna@gmail.com', 'F', 15, 1, 'donante', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -93,7 +94,10 @@ CREATE TABLE `barrio` (
 --
 
 INSERT INTO `barrio` (`id_barrio`, `nombre_barrio`, `id_localidad`, `created_at`, `updated_at`) VALUES
-(1, 'Bilbao', 15, NULL, NULL);
+(1, 'Bilbao', 15, NULL, NULL),
+(2, 'Madelena', 19, NULL, NULL),
+(3, 'bilbao', 4, NULL, NULL),
+(4, 'bilbao', 19, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -111,7 +115,8 @@ CREATE TABLE `detalle_condicion` (
 --
 
 INSERT INTO `detalle_condicion` (`id_condicion`, `descripcion`) VALUES
-(3, 'Mordelon');
+(16, 'Mordelon'),
+(19, 'Lindo');
 
 -- --------------------------------------------------------
 
@@ -132,7 +137,8 @@ CREATE TABLE `detalle_donacion` (
 --
 
 INSERT INTO `detalle_donacion` (`id_detalle`, `id_donacion`, `descripcion_producto`, `created_at`, `updated_at`) VALUES
-(2, 1, 'nada', '2025-07-11 07:23:51', '2025-07-11 07:23:51');
+(5, 3, 'por daviplata', '2025-07-12 01:12:37', '2025-07-12 01:12:37'),
+(6, 1, 'nada', '2025-07-12 01:12:48', '2025-07-12 01:12:48');
 
 -- --------------------------------------------------------
 
@@ -155,7 +161,8 @@ CREATE TABLE `donaciones` (
 --
 
 INSERT INTO `donaciones` (`id_donacion`, `tipo`, `cantidad`, `fecha`, `id_adoptante`, `created_at`, `updated_at`) VALUES
-(1, 'Comida', 2.00, '2025-07-01', 1, '2025-07-02 05:49:46', '2025-07-02 05:49:46');
+(1, 'Comida', 2.00, '2025-07-01', 3, '2025-07-02 05:49:46', '2025-07-12 01:12:48'),
+(3, 'Dinero', 1000000.00, '2025-07-11', 1, '2025-07-12 01:12:04', '2025-07-12 01:12:37');
 
 -- --------------------------------------------------------
 
@@ -220,7 +227,8 @@ CREATE TABLE `historia_clinica` (
 --
 
 INSERT INTO `historia_clinica` (`id_historia`, `id_mascota`, `fecha_chequeo`, `peso`, `tratamiento`, `observaciones`, `cuidados`, `created_at`, `updated_at`) VALUES
-(1, 1, '2025-07-01', 70.00, 'ninguno', 'nada', 'nada', '2025-07-02 05:48:29', '2025-07-02 05:48:29');
+(1, 1, '2025-07-01', 70.00, 'ninguno', 'nada', 'nada', '2025-07-02 05:48:29', '2025-07-02 05:48:29'),
+(3, 2, '2025-07-17', 22.00, 'nada', 'nada', 'nada', '2025-07-12 01:06:41', '2025-07-12 01:07:13');
 
 -- --------------------------------------------------------
 
@@ -312,7 +320,8 @@ CREATE TABLE `mascota` (
 --
 
 INSERT INTO `mascota` (`id_mascota`, `nombre_mascota`, `edad`, `vacunado`, `peligroso`, `esterilizado`, `destetado`, `genero`, `imagen`, `crianza`, `fecha_ingreso`, `condiciones_especiales`, `raza_id`, `condicion_id`, `estado_id`) VALUES
-(1, 'Paco', 9, 1, 1, 1, 0, 'Macho', 'imagenes/H1a0SfhvRo2XDKQ5TPFKfVTN2BH5I03KBDTNCFVj.png', 1, '2025-07-01', 1, 2, 3, 6);
+(1, 'Paco', 9, 1, 1, 1, 1, 'Macho', 'imagenes/H1a0SfhvRo2XDKQ5TPFKfVTN2BH5I03KBDTNCFVj.png', 0, '2025-07-01', 1, 5, 16, 6),
+(2, 'Milo', 4, 0, 0, 1, 0, 'Macho', 'imagenes/TqOiljc1yHuEDGioIDErKwBXZKGgiWb8687HpofY.jpg', 1, '2025-07-11', 1, 5, 19, 6);
 
 -- --------------------------------------------------------
 
@@ -398,8 +407,10 @@ CREATE TABLE `razas` (
 --
 
 INSERT INTO `razas` (`id_raza`, `nombre_raza`) VALUES
-(1, 'Koker'),
-(2, 'nombre_raza');
+(5, 'cocker'),
+(3, 'Fold'),
+(4, 'Golden'),
+(1, 'Koker');
 
 -- --------------------------------------------------------
 
@@ -580,37 +591,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `adopciones`
 --
 ALTER TABLE `adopciones`
-  MODIFY `id_adopcion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_adopcion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `adoptantes`
 --
 ALTER TABLE `adoptantes`
-  MODIFY `id_adoptante` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_adoptante` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `barrio`
 --
 ALTER TABLE `barrio`
-  MODIFY `id_barrio` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_barrio` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_condicion`
 --
 ALTER TABLE `detalle_condicion`
-  MODIFY `id_condicion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_condicion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_donacion`
 --
 ALTER TABLE `detalle_donacion`
-  MODIFY `id_detalle` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_detalle` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `donaciones`
 --
 ALTER TABLE `donaciones`
-  MODIFY `id_donacion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_donacion` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `estados`
@@ -628,13 +639,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de la tabla `historia_clinica`
 --
 ALTER TABLE `historia_clinica`
-  MODIFY `id_historia` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_historia` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  MODIFY `id_imagen` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_imagen` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `localidad_usu`
@@ -646,7 +657,7 @@ ALTER TABLE `localidad_usu`
 -- AUTO_INCREMENT de la tabla `mascota`
 --
 ALTER TABLE `mascota`
-  MODIFY `id_mascota` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_mascota` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -664,7 +675,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT de la tabla `razas`
 --
 ALTER TABLE `razas`
-  MODIFY `id_raza` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_raza` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_docum`
